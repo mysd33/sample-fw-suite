@@ -42,8 +42,7 @@ Resources:
               Service:
                 - codebuild.amazonaws.com
             Action:
-              - 'sts:AssumeRole'
-  #TODO: Review Required Actions of Policy Document  
+              - 'sts:AssumeRole'  
   CodeBuildPolicy:
     Type: AWS::IAM::Policy
     Properties:
@@ -61,16 +60,7 @@ Resources:
           - codecommit:GitPull
           Effect: Allow
           Resource:          
-            - !Sub arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:${CodeCommitRepositoryName}        
-        - Action:
-          - ecr:BatchCheckLayerAvailability
-          - ecr:CompleteLayerUpload
-          - ecr:GetAuthorizationToken
-          - ecr:InitiateLayerUpload
-          - ecr:PutImage
-          - ecr:UploadLayerPart
-          Effect: Allow
-          Resource: "*"   
+            - !Sub arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:${CodeCommitRepositoryName}    
         - Action:
           - s3:PutObject
           - s3:GetObject
@@ -87,14 +77,9 @@ Resources:
       Roles:
       - !Ref CodeBuildRole
 
- Outputs:
+Outputs:
   CodeBuildRoleArn:
     Description: CodeBuildRole Arn
     Value: !GetAtt CodeBuildRole.Arn
     Export: 
-      Name: !Sub ${StackPrefix}-CodeBuildRole-Arn    
-  CodeDeployServiceRoleArn:
-    Description: CodeDeployServiceRole Arn
-    Value: !GetAtt CodeDeployServiceRole.Arn
-    Export: 
-      Name: !Sub ${StackPrefix}-CodeDeployServiceRole-Arn  
+      Name: !Sub ${StackPrefix}-CodeBuildRole-Arn

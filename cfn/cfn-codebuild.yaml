@@ -16,7 +16,7 @@ Parameters:
     Type: String    
     Default: sample-fw
   BuildSpecPath:
-    Description: File Path buildpsec.yml
+    Description: File Path for buildpsec.yml
     Type: String
     Default: sample-fw-parent/buildspec.yml
   ArtifactS3BucketName:
@@ -40,7 +40,7 @@ Resources:
       Source:
         Type: CODECOMMIT
         Location: !Sub https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${RepositoryName}
-      BuildSpec: !Ref ${BuildSpecPath}         
+        BuildSpec: !Ref BuildSpecPath
       Artifacts:
         Type: S3
         Location: !Sub ${ArtifactS3BucketName}
