@@ -19,7 +19,7 @@ phases:
       #TODO: mvn deploy to CodeArtifact      
 artifacts:
   files:
-    #- target/sample-*.jar
+    - **/target/sample-*.jar
 cache:
   paths:
     - '/root/.m2/**/*'
