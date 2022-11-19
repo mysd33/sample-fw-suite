@@ -16,7 +16,7 @@ phases:
       - mvn -s settings.xml package
   post_build:    
     commands:
-      - echo Post Build completed on `date`
+      - echo Post Build started on `date`
       #Deploy to CodeArtifact      
       - mvn -s settings.xml deploy
 artifacts:
