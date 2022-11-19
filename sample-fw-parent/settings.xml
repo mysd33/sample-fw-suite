@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-	<profiles>
-		<profile>
-			<id>my-domain-my-repo</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>my-domain-my-repo</id>
-					<url>https://my-domain-523530166249.d.codeartifact.ap-northeast-1.amazonaws.com/maven/my-repo/</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
-	<servers>
-		<server>
-			<id>my-domain-my-repo</id>
-			<username>aws</username>
-			<password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
-		</server>
-	</servers>
-
-	<mirrors>
-		<mirror>
-			<id>my-domain-my-repo</id>
-			<name>my-domain-my-repo</name>
-			<url>https://my-domain-523530166249.d.codeartifact.ap-northeast-1.amazonaws.com/maven/my-repo/</url>
-			<mirrorOf>*</mirrorOf>
-		</mirror>
-	</mirrors>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+            <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+            <repository>
+                <id>codeartifact</id>
+                <url>${env.REPOSITORY_URL}</url>
+            </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <servers>
+        <server>
+            <id>codeartifact</id>
+            <username>aws</username>
+            <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+        </server>
+    </servers>
+    <mirrors>
+        <mirror>
+            <id>codeartifact</id>
+            <name>codeartifact</name>
+            <url>${env.REPOSITORY_URL}</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
 </settings>

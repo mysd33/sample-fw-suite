@@ -81,9 +81,9 @@
 	</modules>
 	<distributionManagement>
 		<repository>
-			<id>my-domain-my-repo</id>
-			<name>my-domain-my-repo</name>
-			<url>https://my-domain-523530166249.d.codeartifact.ap-northeast-1.amazonaws.com/maven/my-repo/</url>
+			<id>codeartifact</id>
+			<name>codeartifact</name>
+			<url>${env.REPOSITORY_URL}</url>
 		</repository>
 	</distributionManagement>
 </project>
