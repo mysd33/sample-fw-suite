@@ -42,6 +42,21 @@ Resources:
         - !GetAtt MavenCentralCodeArtifactRepository.Name
 
 Outputs:
+  CodeArtifactDomainName:  
+    Description: CodeArtifact Domain Name
+    Value: !GetAtt CodeArtifactDomain.Name
+    Export: 
+      Name: !Sub ${StackPrefix}-CodeArtifactDomainName
+  CodeArtifactMavenRepositoryName:
+    Description: CodeArtifact Repository Name
+    Value: !GetAtt CodeArtifactRepository.Name
+    Export:
+      Name: !Sub ${StackPrefix}-CodeArtifactRepositoryName
+  CodeArtifactMavenRepositoryURL:
+    Description: CodeArtifact Repository URL
+    Value: !Sub https://${CodeArtifactDomain.Name}-${AWS::AccountId}.d.codeartifact.${AWS::Region}.amazonaws.com/maven/${CodeArtifactRepository.Name}/
+    Export: 
+      Name: !Sub ${StackPrefix}-CodeArtifactMavenRepositoryURL    
   CodeArtifactRepositoryArn:
     Description: CodeArtifact Repository Arn
-    Value: !Ref CodeArtifactRepository
+    Value: !Ref CodeArtifactRepository  

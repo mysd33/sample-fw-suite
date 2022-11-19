@@ -7,16 +7,18 @@ phases:
   pre_build:
     commands:      
       - echo Pre Build started on `date`
-      #TODO: Login CodeArtifact      
+      #Login CodeArtifact      
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $DOMAIN_NAME --domain-owner $DOMAIN_OWNER --region $REGION --query authorizationToken --output text`
   build:
     commands:
       - echo Build started on `date`
       - cd sample-fw-parent
-      - mvn package
+      - mvn -s settings.xml package
   post_build:    
     commands:
       - echo Post Build completed on `date`
-      #TODO: mvn deploy to CodeArtifact      
+      #Deploy to CodeArtifact      
+      - mvn -s settings.xml deploy
 artifacts:
   files:
     - '**/target/sample-*.jar'
