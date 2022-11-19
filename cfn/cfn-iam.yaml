@@ -43,6 +43,7 @@ Resources:
                 - codebuild.amazonaws.com
             Action:
               - 'sts:AssumeRole'  
+  #TODO: Review IAM Policy  
   CodeBuildPolicy:
     Type: AWS::IAM::Policy
     Properties:
@@ -73,6 +74,23 @@ Resources:
             - !Sub arn:aws:s3:::${ArtifactS3BucketName}/*      
             - !Sub arn:aws:s3:::${CacheS3Location}            
             - !Sub arn:aws:s3:::${CacheS3Location}/*
+        - Action:
+          - codeartifact:List*
+          - codeartifact:Describe*
+          - codeartifact:Get*
+          - codeartifact:Read*
+          - codeartifact:PublishPackageVersion          
+          Effect: Allow
+          Resource: 
+            - !Sub arn:aws:codeartifact:${AWS::Region}:${AWS::AccountId}:domain/*
+        - Action:
+          - sts:GetServiceBearerToken
+          Effect: Allow
+          Resource:
+            - "*"
+          Condition:
+            StringEquals:
+              'sts:AWSServiceName': codeartifact.amazonaws.com
       PolicyName: !Sub ${StackPrefix}-CodeBuildPolicy
       Roles:
       - !Ref CodeBuildRole
