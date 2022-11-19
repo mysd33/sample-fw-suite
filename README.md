@@ -9,11 +9,14 @@
 cd cfn
 
 aws cloudformation validate-template --template-body file://cfn-iam.yaml
-aws cloudformation create-stack --stack-name FW-IAM-Stack --template-body file://cfn-iam.yaml --capabilities CAPABILITY_IAM
+aws cloudformation create-stack --stack-name Demo-IAM-Stack --template-body file://cfn-iam.yaml --capabilities CAPABILITY_IAM
 ```
 
 ### CodeArtifactの作成
-TBD
+```sh
+aws cloudformation validate-template --template-body file://cfn-codeartifact.yaml
+aws cloudformation create-stack --stack-name Demo-CodeArtifact-Stack --template-body file://cfn-codeartifact.yaml
+```
 
 ### CodeBuildの作成
 ```sh

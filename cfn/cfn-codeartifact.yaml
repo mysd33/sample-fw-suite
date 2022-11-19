@@ -1,13 +1,47 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: CodeArtifact Template for CloudFormation Demo.
-Metadata: 
+#Metadata: 
 
 Parameters: 
+  StackPrefix:
+    Description: Stack Resource Name Prefix
+    Type: String
+    Default: Demo
+  DomainName:
+    Description: CodeArtifact Domain Name
+    Type: String
+    Default: my-domain
+  RepositoryName:
+    Description: CodeArtifact Repository Name
+    Type: String
+    Default: my-repo
 
-Mappings: 
+#Mappings: 
 
-Conditions: 
+#Conditions: 
 
 Resources: 
+Resources:
+  CodeArtifactDomain:
+    Type: 'AWS::CodeArtifact::Domain'
+    Properties:
+      DomainName: !Ref DomainName
+  MavenCentralCodeArtifactRepository:
+    Type: 'AWS::CodeArtifact::Repository'
+    Properties:
+      RepositoryName: maven-central-store
+      ExternalConnections:
+        - public:maven-central
+      DomainName: !GetAtt CodeArtifactDomain.Name
+  CodeArtifactRepository:
+    Type: 'AWS::CodeArtifact::Repository'
+    Properties:
+      RepositoryName: !Ref RepositoryName
+      DomainName: !GetAtt CodeArtifactDomain.Name
+      Upstreams:
+        - !GetAtt MavenCentralCodeArtifactRepository.Name
 
 Outputs:
+  CodeArtifactRepositoryArn:
+    Description: CodeArtifact Repository Arn
+    Value: !Ref CodeArtifactRepository
