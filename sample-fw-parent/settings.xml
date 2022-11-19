@@ -24,8 +24,8 @@
     </servers>
     <mirrors>
         <mirror>
-            <id>central-mirror</id>
-            <name>CodeArtifact Maven Central mirror</name>
+            <id>codeartifact</id>
+            <name>codeartifact</name>
             <url>${env.REPOSITORY_URL}</url>
             <mirrorOf>*</mirrorOf>
         </mirror>
