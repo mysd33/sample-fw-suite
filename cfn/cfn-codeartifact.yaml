@@ -20,7 +20,6 @@ Parameters:
 
 #Conditions: 
 
-Resources: 
 Resources:
   CodeArtifactDomain:
     Type: 'AWS::CodeArtifact::Domain'
