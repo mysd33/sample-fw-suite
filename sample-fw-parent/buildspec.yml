@@ -9,8 +9,8 @@ phases:
       - echo Pre Build started on `date`
       #Login CodeArtifact      
       - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $DOMAIN_NAME --domain-owner $DOMAIN_OWNER --region $REGION --query authorizationToken --output text`
-      - echo $CODEARTIFACT_AUTH_TOKEN
-      - echo $REPOSITORY_URL
+#      - echo $CODEARTIFACT_AUTH_TOKEN
+#      - echo $REPOSITORY_URL
   build:
     commands:
       - echo Build started on `date`

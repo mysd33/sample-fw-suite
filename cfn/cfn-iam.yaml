@@ -80,9 +80,12 @@ Resources:
           - codeartifact:Get*
           - codeartifact:Read*
           - codeartifact:PublishPackageVersion          
+          - codeartifact:PutPackageMetadata
           Effect: Allow
           Resource: 
             - !Sub arn:aws:codeartifact:${AWS::Region}:${AWS::AccountId}:domain/*
+            - !Sub arn:aws:codeartifact:${AWS::Region}:${AWS::AccountId}:repository/*
+            - !Sub arn:aws:codeartifact:${AWS::Region}:${AWS::AccountId}:package/*
         - Action:
           - sts:GetServiceBearerToken
           Effect: Allow
