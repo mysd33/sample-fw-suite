@@ -16,10 +16,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<java.version>11</java.version>				
+		<java.version>11</java.version>
 		<awssdk.bom.version>2.17.247</awssdk.bom.version>
 		<amazon-sqs-java-messaging-lib.version>1.0.4</amazon-sqs-java-messaging-lib.version>
 		<spring.cloud-version>2021.0.4</spring.cloud-version>
+		<elasticmq.version>1.3.9</elasticmq.version>
 	</properties>
 	<modules>
 		<module>sample-fw-common</module>
@@ -51,7 +52,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-		</dependencies>		
+			<!-- ElasticMQ (SQS Local) -->
+			<dependency>
+				<groupId>org.elasticmq</groupId>
+				<artifactId>elasticmq-rest-sqs_2.13</artifactId>
+				<version>${elasticmq.version}</version>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
 
 	<distributionManagement>
