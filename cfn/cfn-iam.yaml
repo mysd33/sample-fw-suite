@@ -8,13 +8,17 @@ Parameters:
     Type: String
     Default: Demo
   CodeBuildProjectName:
-    Description: Frontend CodeBuild Project Name
+    Description: CodeBuild Project Name
     Type: String
     Default: demo-fw-ci    
   CodeCommitRepositoryName:
     Description: Source Code Repository Location of CodeCommit
     Type: String
     Default: sample-fw
+  CodePipelineName:
+    Description: CodePipeline Name
+    Type: String
+    Default: demo-fw-pipeline
   ArtifactS3BucketName:
     Description: Artifact Location of S3 Bucket
     Type: String
@@ -98,9 +102,85 @@ Resources:
       Roles:
       - !Ref CodeBuildRole
 
+  #CodePipeline Cloud Watch Event IAM Role and IAM Policy
+  CodePipelineCloudWatchEventRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: CodePipelineCloudWatchEventRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - events.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: CloudWatch-Event-Policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: codepipeline:StartPipelineExecution
+                Resource:
+                  - !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${CodePipelineName}
+
+  #IAM Role and IAM Policy for CodePipeline
+  #TODO: Review Required Actions of Policy Document
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: CodePipelineServiceRole
+      Path: /
+      AssumeRolePolicyDocument: 
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: AWS-CodePipeline-Service-Policy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'codecommit:CancelUploadArchive'
+                  - 'codecommit:GetBranch'
+                  - 'codecommit:GetCommit'
+                  - 'codecommit:GetUploadArchiveStatus'
+                  - 'codecommit:UploadArchive'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'codebuild:BatchGetBuilds'
+                  - 'codebuild:StartBuild'
+                Resource: '*'                              
+              - Effect: Allow
+                Action:
+                  - 'iam:PassRole'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'cloudwatch:*'
+                  - 's3:*'
+                Resource: '*'
 Outputs:
   CodeBuildRoleArn:
     Description: CodeBuildRole Arn
     Value: !GetAtt CodeBuildRole.Arn
     Export: 
       Name: !Sub ${StackPrefix}-CodeBuildRole-Arn
+  CodePipelineCloudWatchEventRoleArn:
+    Description: CodePipelineCloudWatchEventRole Arn
+    Value: !GetAtt CodePipelineCloudWatchEventRole.Arn
+    Export: 
+      Name: !Sub ${StackPrefix}-CodePipelineCloudWatchEventRole-Arn
+  CodePipelineServiceRoleArn:
+    Description: CodePipelineServiceRole Arn
+    Value: !GetAtt CodePipelineServiceRole.Arn
+    Export: 
+      Name: !Sub ${StackPrefix}-CodePipelineServiceRole-Arn      

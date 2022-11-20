@@ -11,18 +11,10 @@ Parameters:
     Description: CodeBuild Project Name
     Type: String
     Default: demo-fw-ci
-  RepositoryName:
-    Description: Source Code Repository Location of CodeCommit
-    Type: String    
-    Default: sample-fw
   BuildSpecPath:
     Description: File Path for buildpsec.yml
     Type: String
     Default: sample-fw-parent/buildspec.yml
-  ArtifactS3BucketName:
-    Description: Artifact Location of S3 Bucket
-    Type: String
-    Default: mysd33bucket123
   CacheS3Location:
     Description: Artifact Location of S3 Bucket Name/Prefix
     Type: String
@@ -38,13 +30,10 @@ Resources:
       Name: !Sub ${ProjectName}
       Description: Framework CI Project
       Source:
-        Type: CODECOMMIT
-        Location: !Sub https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${RepositoryName}
+        Type: CODEPIPELINE        
         BuildSpec: !Ref BuildSpecPath
       Artifacts:
-        Type: S3
-        Location: !Sub ${ArtifactS3BucketName}
-      BadgeEnabled: true
+        Type: CODEPIPELINE      
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
