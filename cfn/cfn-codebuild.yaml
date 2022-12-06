@@ -14,7 +14,7 @@ Parameters:
   BuildSpecPath:
     Description: File Path for buildpsec.yml
     Type: String
-    Default: sample-fw-parent/buildspec.yml
+    Default: buildspec.yml
   CacheS3Location:
     Description: Artifact Location of S3 Bucket Name/Prefix
     Type: String

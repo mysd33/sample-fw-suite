@@ -12,15 +12,22 @@ phases:
 #      - echo $CODEARTIFACT_AUTH_TOKEN
 #      - echo $REPOSITORY_URL
   build:
-    commands:
+    commands:      
       - echo Build started on `date`
-      - cd sample-fw-parent
-      - mvn -s settings.xml package
+      #Deploy Bom to CodeArtifact
+      - echo Deploy Bom
+      - cd sample-fw-bom       
+      - mvn -s ../settings.xml deploy
+      #Build Framework      
+      - echo Build Framework Projects
+      - cd ../sample-fw-parent
+      - mvn -s ../settings.xml package
   post_build:    
     commands:
       - echo Post Build started on `date`
-      #Deploy to CodeArtifact      
-      - mvn -s settings.xml deploy
+      #Deploy Framwork to CodeArtifact   
+      - echo Deploy Framework    
+      - mvn -s ../settings.xml deploy
 artifacts:
   files:
     - '**/target/sample-*.jar'
