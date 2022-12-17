@@ -24,6 +24,7 @@
 				<version>${amazon-sqs-java-messaging-lib.version}</version>
 				<type>jar</type>
 			</dependency>
+			
 			<!-- AWS SDK -->
 			<dependency>
 				<groupId>software.amazon.awssdk</groupId>
@@ -32,6 +33,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			
 			<!-- Spring Cloud -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -40,12 +42,28 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<!-- DynamoDB Local -->
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>DynamoDBLocal</artifactId>
+				<version>[1.12,2.0)</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.almworks.sqlite4java</groupId>
+				<artifactId>sqlite4java-win32-x64</artifactId>
+				<type>dll</type>
+				<version>1.0.392</version>
+			</dependency>
+			
 			<!-- ElasticMQ (SQS Local) -->
 			<dependency>
 				<groupId>org.elasticmq</groupId>
 				<artifactId>elasticmq-rest-sqs_2.13</artifactId>
 				<version>${elasticmq.version}</version>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
