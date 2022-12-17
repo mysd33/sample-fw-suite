@@ -13,7 +13,7 @@ public final class LoggerFactory {
 
 	static {
 		messageSource.setDefaultEncoding("UTF-8"); 
-		messageSource.setBasenames("messages"); 
+		messageSource.setBasenames("messages", "messages-fw-common", "messages-fw-web", "messages-fw-batch"); 
 	}
 	
 	private  LoggerFactory() {
