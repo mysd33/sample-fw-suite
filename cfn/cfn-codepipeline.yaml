@@ -14,7 +14,7 @@ Parameters:
   RepositoryName:
     Description: CodeCommit repository name
     Type: String
-    Default: sample-fw
+    Default: sample-fw-suite
   PipelineName:  
     Description: CodePipeline name
     Type: String

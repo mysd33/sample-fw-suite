@@ -16,7 +16,7 @@ phases:
       - echo Build started on `date`
       #Build Framework      
       - echo Build Framework Projects
-      - cd ../sample-fw
+      - cd sample-fw
       - mvn -s ../settings.xml package
   post_build:    
     commands:
@@ -24,8 +24,8 @@ phases:
       #Deploy Framwork to CodeArtifact   
       - echo Deploy Framework    
       - mvn -s ../settings.xml deploy
-       #Deploy Bom to CodeArtifact
-      - echo Deploy Parent Pom
+       #Deploy Parent POM to CodeArtifact
+      - echo Deploy Parent POM
       - cd sample-fw-parent     
       - mvn -s ../settings.xml deploy
 artifacts:
