@@ -26,7 +26,7 @@ phases:
       - mvn -s ../settings.xml deploy
        #Deploy Parent POM to CodeArtifact
       - echo Deploy Parent POM
-      - cd sample-fw-parent     
+      - cd ../sample-fw-parent     
       - mvn -s ../settings.xml deploy
 artifacts:
   files:
