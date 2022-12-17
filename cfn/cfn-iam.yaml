@@ -14,7 +14,7 @@ Parameters:
   CodeCommitRepositoryName:
     Description: Source Code Repository Location of CodeCommit
     Type: String
-    Default: sample-fw
+    Default: sample-fw-suite
   CodePipelineName:
     Description: CodePipeline Name
     Type: String
