@@ -32,7 +32,7 @@
             <id>codeartifact</id>
             <name>codeartifact</name>
             <url>${env.REPOSITORY_URL}</url>
-            <mirrorOf>*</mirrorOf>
+            <mirrorOf>central</mirrorOf>
         </mirror>
     </mirrors>
 </settings>
