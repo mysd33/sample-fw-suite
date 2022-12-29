@@ -8,11 +8,11 @@
 		<groupId>com.example</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>sample-fw-parent</artifactId>
-	<name>sample-fw-parent</name>
+	<artifactId>app-parent</artifactId>
+	<name>app-parent</name>
 	<packaging>pom</packaging>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<bootstrap.version>5.2.2</bootstrap.version>
 		<bootstrap-icons.version>1.10.2</bootstrap-icons.version>
 		<mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>

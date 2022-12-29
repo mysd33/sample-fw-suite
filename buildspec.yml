@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: corretto17
   pre_build:
     commands:      
       - echo Pre Build started on `date`
@@ -25,8 +25,8 @@ phases:
       - echo Deploy Framework    
       - mvn -s ../settings.xml deploy
        #Deploy Parent POM to CodeArtifact
-      - echo Deploy Parent POM
-      - cd ../sample-fw-parent     
+      - echo Deploy Application Parent POM
+      - cd ../app-parent     
       - mvn -s ../settings.xml deploy
 artifacts:
   files:
