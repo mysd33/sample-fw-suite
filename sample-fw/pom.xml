@@ -19,6 +19,7 @@
 		<java.version>17</java.version>		
 		<awssdk.bom.version>2.17.247</awssdk.bom.version>
 		<amazon-sqs-java-messaging-lib.version>1.0.4</amazon-sqs-java-messaging-lib.version>
+		<awsxray.bom.version>2.11.0</awsxray.bom.version>
 		<spring.cloud-version>2021.0.4</spring.cloud-version>
 		<dynamodb-local.version>[1.12,2.0)</dynamodb-local.version>
 		<sqlite4java-win32-x64.version>1.0.392</sqlite4java-win32-x64.version>		
@@ -44,6 +45,15 @@
 				<groupId>software.amazon.awssdk</groupId>
 				<artifactId>bom</artifactId>
 				<version>${awssdk.bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<!-- AWS X-Ray -->
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-xray-recorder-sdk-bom</artifactId>
+				<version>${awsxray.bom.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
