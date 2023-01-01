@@ -34,7 +34,7 @@ public class DynamoDBLocalExecutor {
 		final String[] localArgs = { "-inMemory", "-port", port };
 		server = ServerRunner.createServerFromCommandLineArgs(localArgs);
 		server.start();
-
+				
 		// AP起動時動作確認用にテーブル作成
 		dynamoDBTableInitializer.createTables();
 	}

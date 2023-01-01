@@ -21,8 +21,7 @@ public class DynamoDBProdIntializer {
 	 * @throws Exception
 	 */
 	@PostConstruct
-	public void startup() throws Exception {
-		// AP起動時動作確認用にテーブル作成
+	public void startup() throws Exception {				
 		dynamoDBTableInitializer.createTables();
 	}
 
