@@ -25,10 +25,9 @@ public class SQSCommonProdConfig {
 	 */
 	@Profile("!xray")
 	@Bean
-	public SQSConnectionFactory sqsConnectionFactoryWithoutXRay() {
+	public SQSConnectionFactory sqsConnectionFactoryWithoutXRay(ProviderConfiguration providerConfiguration) {
 		AmazonSQSClientBuilder builder = AmazonSQSClientBuilder.standard().withRegion(region);
-		SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), builder);
-		return connectionFactory;
+		return new SQSConnectionFactory(providerConfiguration, builder);		
 	}
 	
 	/**
@@ -36,12 +35,11 @@ public class SQSCommonProdConfig {
 	 */
 	@Profile("xray")
 	@Bean
-	public SQSConnectionFactory sqsConnectionFactory() {
+	public SQSConnectionFactory sqsConnectionFactory(ProviderConfiguration providerConfiguration) {
 		AmazonSQSClientBuilder builder = AmazonSQSClientBuilder.standard().withRegion(region)
 				//個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
 				.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()));
-		SQSConnectionFactory connectionFactory = new SQSConnectionFactory(new ProviderConfiguration(), builder);
-		return connectionFactory;
+		return new SQSConnectionFactory(providerConfiguration, builder);		
 	}
 
 }

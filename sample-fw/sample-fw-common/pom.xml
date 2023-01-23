@@ -74,16 +74,14 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>DynamoDBLocal</artifactId>
-			<version>[1.12,2.0)</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.almworks.sqlite4java</groupId>
 			<artifactId>sqlite4java-win32-x64</artifactId>
 			<type>dll</type>
-			<version>1.0.392</version>
 			<!-- <scope>test</scope> -->
-		</dependency>
+	</dependency>
 		
 		<!-- Spring JMS -->
 		<dependency>
