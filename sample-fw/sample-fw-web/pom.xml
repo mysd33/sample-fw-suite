@@ -25,15 +25,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<!-- Thymeleaf -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<optional>true</optional>
 		</dependency>
 		
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+			<optional>true</optional>
 		</dependency>
 		
 		<!-- TERASOLUNA Web (for TransactionToken Check) -->
@@ -46,6 +50,7 @@
 					<artifactId>*</artifactId>
 				</exclusion>
 			</exclusions>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Spring Data Commons -->
