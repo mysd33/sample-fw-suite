@@ -81,7 +81,7 @@
 			<artifactId>sqlite4java-win32-x64</artifactId>
 			<type>dll</type>
 			<!-- <scope>test</scope> -->
-	</dependency>
+		</dependency>
 		
 		<!-- Spring JMS -->
 		<dependency>
@@ -102,6 +102,12 @@
 			<artifactId>sqs</artifactId>
 		</dependency>
 
+		<!-- AWS SDK S3 -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+		</dependency>
+		
 		<!-- JMS API -->
 		<dependency>
 			<groupId>javax.jms</groupId>
@@ -120,6 +126,12 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-aws-sdk-v2</artifactId>
+		</dependency>
+		
+		<!-- Apache Commons IO -->		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>		
 		</dependency>				
   </dependencies>
 
