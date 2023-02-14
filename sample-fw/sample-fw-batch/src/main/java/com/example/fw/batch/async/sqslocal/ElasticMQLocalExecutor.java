@@ -5,34 +5,28 @@ import javax.annotation.PreDestroy;
 
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
-import org.springframework.beans.factory.annotation.Value;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
-import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
+import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
 
 /**
  * SQS互換のAPIを持つElasticMQをローカル起動するクラス
  */
 @Slf4j
+@RequiredArgsConstructor
 public class ElasticMQLocalExecutor {
-    private static final String ELASTICMQ = "elasticmq";
-    private static final String HTTP_LOCALHOST = "http://localhost:";
     private static final String LOCAL_HOST = "localhost";
+    private final SqsClient sqsClient;
+    private final int port;    
+    private final String queueName;
+
     private SQSRestServer server;
-    private String queueUrl;
-    private AmazonSQS amazonSQS;
-
-    @Value("${aws.sqs.sqslocal.port}")
-    private String port;
-
-    @Value("${aws.sqs.queue.name}")
-    private String queueName;
-
+    private String queueUrl;       
+    
     /**
      * ElasticMQ 起動
      * 
@@ -40,16 +34,13 @@ public class ElasticMQLocalExecutor {
      */
     @PostConstruct
     public void startup() throws Exception {
-        server = SQSRestServerBuilder.withPort(Integer.valueOf(port)).withInterface(LOCAL_HOST).start();
+        server = SQSRestServerBuilder.withPort(port).withInterface(LOCAL_HOST).start();
         log.info("ElasticMQ start");
-
-        // ダミーのクレデンシャル
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials("dummy", "dummy");        
-        amazonSQS = AmazonSQSClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
-                .withEndpointConfiguration(new EndpointConfiguration(HTTP_LOCALHOST + port, ELASTICMQ)).build();
-        
-        queueUrl = amazonSQS.createQueue(queueName).getQueueUrl();
+        CreateQueueRequest createQueueRequest = CreateQueueRequest.builder()
+                .queueName(queueName)
+                .build();
+        CreateQueueResponse createQueueResponse = sqsClient.createQueue(createQueueRequest);
+        queueUrl = createQueueResponse.queueUrl();
         log.info("ElasticMQ queueUrl:" + queueUrl);
     }
 
@@ -61,7 +52,10 @@ public class ElasticMQLocalExecutor {
     @PreDestroy
     public void shutdown() {
         if (server != null) {
-            amazonSQS.deleteQueue(queueUrl);
+            DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
+                    .queueUrl(queueUrl).build();
+            sqsClient.deleteQueue(deleteQueueRequest);
+            
             server.stopAndWait();
         }
     }

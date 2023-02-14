@@ -23,14 +23,14 @@ import software.amazon.awssdk.services.s3.S3Configuration;
 
 /**
  * 
- * S3が開発環境上でのローカルサーバFake（s3rver）実行に置き換える設定クラス
+ * S3が開発環境上でのローカルサーバFake（MinIO）実行に置き換える設定クラス
  *
  */
 @Profile("dev")
-@ConditionalOnProperty(prefix = "aws.s3.localfake", name = "type", havingValue = "s3rver")
+@ConditionalOnProperty(prefix = "aws.s3.localfake", name = "type", havingValue = "minio")
 @EnableConfigurationProperties({S3ConfigurationProperties.class})
 @Configuration
-public class S3LocalS3rverFakeConfig {
+public class S3LocalMinioFakeConfig {
     @Autowired
     private S3ConfigurationProperties s3ConfigurationProperties;    
 
@@ -49,7 +49,8 @@ public class S3LocalS3rverFakeConfig {
     @Bean
     public S3Client s3ClientWithoutXRay() {
         // ダミーのクレデンシャル
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create("S3RVER", "S3RVER");
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(s3ConfigurationProperties.getLocalfake().getAccessKeyId(),
+                s3ConfigurationProperties.getLocalfake().getSecretAccessKey());
         
         Region region = Region.of(s3ConfigurationProperties.getRegion());
         // @formatter:off
@@ -57,9 +58,9 @@ public class S3LocalS3rverFakeConfig {
                 .region(region)       
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .endpointOverride(URI.create("http://localhost:" + s3ConfigurationProperties.getLocalfake().getPort()))
-                //S3rverの場合、putしたファイルにchunk-signatureが入ってしまうため対処策として設定
+                //MinIOはデフォルトPath-Styleのため
                 .serviceConfiguration(S3Configuration.builder()
-                        .chunkedEncodingEnabled(false).build())
+                        .pathStyleAccessEnabled(true).build())
                 .build();        
         // @formatter:on
     }
@@ -71,7 +72,8 @@ public class S3LocalS3rverFakeConfig {
     @Bean
     public S3Client s3ClientWithXRay() {
         // ダミーのクレデンシャル
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create("S3RVER", "S3RVER");
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(s3ConfigurationProperties.getLocalfake().getAccessKeyId(),
+                s3ConfigurationProperties.getLocalfake().getSecretAccessKey());
         
         Region region = Region.of(s3ConfigurationProperties.getRegion());
         // @formatter:off
@@ -79,12 +81,12 @@ public class S3LocalS3rverFakeConfig {
                 .region(region)       
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .endpointOverride(URI.create("http://localhost:" + s3ConfigurationProperties.getLocalfake().getPort()))
-                //S3rverの場合、putしたファイルにchunk-signatureが入ってしまうため対処策として設定
-                .serviceConfiguration(S3Configuration.builder()
-                        .chunkedEncodingEnabled(false).build())
                 // 個別にDynamoDBへのAWS SDKの呼び出しをトレーシングできるように設定
                 .overrideConfiguration(
                         ClientOverrideConfiguration.builder().addExecutionInterceptor(new TracingInterceptor()).build())
+                //MinIOはデフォルトPath-Styleのため
+                .serviceConfiguration(S3Configuration.builder()
+                        .pathStyleAccessEnabled(true).build())
                 .build();        
         // @formatter:on
     }        
