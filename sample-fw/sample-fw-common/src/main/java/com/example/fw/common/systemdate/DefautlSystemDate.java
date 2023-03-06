@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
  *
  */
 @RequiredArgsConstructor
-public class SystemDateImpl implements SystemDate {
+public class DefautlSystemDate implements SystemDate {
     // テスト実施時に、コマンドライン引数や環境変数等で、外部からシステム比杖ｋを固定化したい場合に利用
     private final String fixedSystemDate;
     
