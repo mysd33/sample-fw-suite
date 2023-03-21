@@ -22,6 +22,12 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+  		<!-- Spring JDBC -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
 		<!-- Spring Boot Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -127,7 +133,11 @@
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-spring</artifactId>
 		</dependency>
-				
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-xray-recorder-sdk-sql</artifactId>
+		</dependency>
+						
 		<!-- Apache Commons IO -->		
 		<dependency>
 			<groupId>commons-io</groupId>
