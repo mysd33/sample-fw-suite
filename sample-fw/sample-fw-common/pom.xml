@@ -75,8 +75,13 @@
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>dynamodb</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>dynamodb-enhanced</artifactId>
+		</dependency>
 		
  		<!-- DynamoDB Local -->
+ 		<!--
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>DynamoDBLocal</artifactId>
@@ -85,9 +90,9 @@
 		<dependency>
 			<groupId>com.almworks.sqlite4java</groupId>
 			<artifactId>sqlite4java-win32-x64</artifactId>
-			<type>dll</type>
-			<!-- <scope>test</scope> -->
+			<type>dll</type>			
 		</dependency>
+		-->
 		
 		<!-- Spring JMS -->
 		<dependency>
@@ -116,8 +121,8 @@
 		
 		<!-- JMS API -->
 		<dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>javax.jms-api</artifactId>			
+			<groupId>jakarta.jms</groupId>
+			<artifactId>jakarta.jms-api</artifactId>			
 		</dependency>
 		
 		<!-- AWS X-Ray -->

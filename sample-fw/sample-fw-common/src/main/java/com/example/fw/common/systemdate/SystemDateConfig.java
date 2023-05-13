@@ -14,7 +14,7 @@ public class SystemDateConfig {
     
     @Bean
     public SystemDate systemDate(SystemDateConfigurationProperties systemDateConfigurationProperties) {
-        return new DefautlSystemDate(systemDateConfigurationProperties.getNow());
+        return new DefaultSystemDate(systemDateConfigurationProperties.getNow());
     }
 
 }

@@ -2,8 +2,6 @@ package com.example.fw.web.token.config;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSessionListener;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +28,8 @@ import org.terasoluna.gfw.web.token.transaction.TransactionTokenRequestDataValue
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenStore;
 
 import com.example.fw.web.token.TransactionTokenCleaningListener;
+
+import jakarta.servlet.http.HttpSessionListener;
 
 /**
  * 
@@ -90,6 +91,8 @@ public class TransactionTokenConfig implements WebMvcConfigurer {
      * セッションタイムアウト時にHttpSessionListener（TransactionTokenCleaningListener）を動作させるための設定
      */
     @Bean
+    //Spring Session with Redisがある場合はBean定義不要
+    @ConditionalOnMissingClass("org.springframework.session.data.redis.RedisSessionRepository")
     public SessionEventHttpSessionListenerAdapter sessionEventHttpSessionListenerAdapter(
             List<HttpSessionListener> listeners) {
         return new SessionEventHttpSessionListenerAdapter(listeners);
