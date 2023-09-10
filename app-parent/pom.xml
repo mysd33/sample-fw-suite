@@ -13,11 +13,11 @@
 	<packaging>pom</packaging>
 	<properties>
 		<java.version>17</java.version>
-		<bootstrap.version>5.2.2</bootstrap.version>
-		<bootstrap-icons.version>1.10.2</bootstrap-icons.version>
-		<mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+		<bootstrap.version>5.3.1</bootstrap.version>
+		<bootstrap-icons.version>1.10.5</bootstrap-icons.version>		
 		<logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
-		<springdoc-openapi-ui.version>2.1.0</springdoc-openapi-ui.version>
+		<springdoc-openapi-ui.version>2.2.0</springdoc-openapi-ui.version>
+		<springdoc-openapi-security.version>1.7.0</springdoc-openapi-security.version>		
 		<!-- MapStruct -->
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
@@ -36,12 +36,6 @@
 				<artifactId>bootstrap-icons</artifactId>
 				<version>${bootstrap-icons.version}</version>
 			</dependency>
-			<!-- MyBatis -->
-			<dependency>
-				<groupId>org.mybatis.spring.boot</groupId>
-				<artifactId>mybatis-spring-boot-starter</artifactId>
-				<version>${mybatis-spring-boot-starter.version}</version>
-			</dependency>
 			<!-- Logstash Logback Encoder -->
 			<dependency>
 				<groupId>net.logstash.logback</groupId>
@@ -54,6 +48,11 @@
 				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 				<version>${springdoc-openapi-ui.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-security</artifactId>
+				<version>${springdoc-openapi-security.version}</version>
+			</dependency>			
 			<!-- MapStruct -->
 			<dependency>
 				<groupId>org.mapstruct</groupId>
