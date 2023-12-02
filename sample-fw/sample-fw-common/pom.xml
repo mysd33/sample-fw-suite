@@ -80,19 +80,37 @@
 			<artifactId>dynamodb-enhanced</artifactId>
 		</dependency>
 		
- 		<!-- DynamoDB Local -->
- 		<!--
+		<!-- AWS SDK Http Client -->		
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>apache-client</artifactId>			
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>				
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>url-connection-client</artifactId>			
+		</dependency>
+		
+ 		<!-- DynamoDB Local --> 		
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>DynamoDBLocal</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.jetty.toolchain</groupId>
+					<artifactId>jetty-jakarta-servlet-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
-		<dependency>
-			<groupId>com.almworks.sqlite4java</groupId>
-			<artifactId>sqlite4java-win32-x64</artifactId>
-			<type>dll</type>			
-		</dependency>
-		-->
 		
 		<!-- Spring JMS -->
 		<dependency>
