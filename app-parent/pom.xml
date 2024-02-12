@@ -16,7 +16,7 @@
 		<bootstrap.version>5.3.1</bootstrap.version>
 		<bootstrap-icons.version>1.10.5</bootstrap-icons.version>		
 		<logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
-		<springdoc-openapi-ui.version>2.2.0</springdoc-openapi-ui.version>
+		<springdoc-openapi-ui.version>2.3.0</springdoc-openapi-ui.version>
 		<springdoc-openapi-security.version>1.7.0</springdoc-openapi-security.version>		
 		<!-- MapStruct -->
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
