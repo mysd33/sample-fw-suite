@@ -69,7 +69,13 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 		</dependency>
- 		
+
+		<!-- Micrometer Tracing -->
+		<dependency>
+		    <groupId>io.micrometer</groupId>
+		    <artifactId>micrometer-tracing</artifactId>
+		</dependency>
+		 		
  		<!-- AWS SDK DynamoDB -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
