@@ -28,7 +28,7 @@
 | | SQS Local起動 | 開発端末での動作確認のため、AP起動時にSQSのローカル実行が可能なFake ElasticMQを起動する機能を提供する。 | ○ | com.example.fw.common.async |
 | オン・バッチ共通 | RDBアクセス | MyBatisやSpringとの統合機能を利用し、DBコネクション取得、SQLの実行等のRDBへのアクセスのため定型的な処理を実施し、ORマッピングやSQLマッピングと呼ばれるドメイン層とインフラ層のインピーダンスミスマッチを吸収する機能を提供する。 | - | - |
 | | DynamoDBアクセス | AWS SDK for Java 2.xのDynamoDB拡張クライアント（DynamoDbEnhancedClient）を使って、DBへのアクセス機能を提供する。 | ○ | com.example.fw.common.dynamodb |
-| | DynamoDBトランザクション管理機能 | DynamoDBのトランザクション管理機能（TransactWriteItems）を利用する操作に対して、AOP機能を利用して、@DynamoDBTransactionalアノテーションによる宣言的トランザクションを実現する機能を提供する。 | - | - |
+| | DynamoDBトランザクション管理機能 | DynamoDBのトランザクション管理機能（TransactWriteItems）を利用する操作に対して、AOP機能を利用して、@DynamoDBTransactionalアノテーションによる宣言的トランザクションを実現する機能を提供する。 | ○ | com.example.fw.common.dynamodb |
 | | オブジェクトストレージ（S3）アクセス | AWS SDK for Java 2.xのS3クライアント（S3Client）を使って、S3のアクセス機能を提供する。開発時にS3アクセスできない場合を考慮して通常のファイルシステムへのFakeに切り替える。 | ○ | com.example.fw.common.objectstorage |
 | | HTTPクライアント | WebClientやRestTemplateを利用してREST APIの呼び出しやサーバエラー時の例外の取り扱いを制御する。 | ○ | com.example.fw.common.httpclient |
 | | リトライ・サーキットブレーカ | Spring Cloud Circuit Breaker（Resillience4j）を利用し、REST APIの呼び出しでの一時的な障害に対する遮断やフォールバック処理等を制御する。また、WebClientのリトライ機能でエクスポネンシャルバックオフによりリトライを実現する。なお、AWSリソースのAPI呼び出しは、AWS SDKにてエクスポネンシャルバックオフによりリトライ処理を提供。 | - | - |
