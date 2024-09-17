@@ -10,7 +10,7 @@ Parameters:
   BranchName:
     Description: CodeCommit branch name
     Type: String
-    Default: master
+    Default: main
   RepositoryName:
     Description: CodeCommit repository name
     Type: String
@@ -46,7 +46,7 @@ Resources:
           referenceType:
             - branch
           referenceName:
-            - master
+            - !Ref BranchName
       Targets:
         - Arn: !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${CodePipeline}
           RoleArn:
