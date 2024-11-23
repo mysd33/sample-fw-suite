@@ -34,7 +34,7 @@
 		<!-- ElasticMQ (SQS Local) -->
 		<dependency>
 			<groupId>org.elasticmq</groupId>
-			<artifactId>elasticmq-rest-sqs_2.13</artifactId>			
+			<artifactId>elasticmq-rest-sqs_3</artifactId>			
 		</dependency>
 		
 	</dependencies>
