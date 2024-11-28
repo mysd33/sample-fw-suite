@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>sample-fw</artifactId>
-		<groupId>com.example</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>sample-fw-batch</artifactId>
-	<name>sample-fw-batch</name>
-		<dependencies>
-		<!-- Framework Common  -->
-		<dependency>			
-			<groupId>com.example</groupId>
-			<artifactId>sample-fw-common</artifactId>
-			<version>1.0-SNAPSHOT</version>			
-		</dependency>
-		
-		<!-- SpringBatch -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-batch</artifactId>
-		</dependency>
-				
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		
-		<!-- ElasticMQ (SQS Local) -->
-		<dependency>
-			<groupId>org.elasticmq</groupId>
-			<artifactId>elasticmq-rest-sqs_3</artifactId>			
-		</dependency>
-		
-	</dependencies>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>sample-fw</artifactId>
+        <groupId>com.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>sample-fw-batch</artifactId>
+    <name>sample-fw-batch</name>
+    <dependencies>
+        <!-- Framework Common  -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>sample-fw-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- SpringBatch -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- ElasticMQ (SQS Local) -->
+        <dependency>
+            <groupId>org.elasticmq</groupId>
+            <artifactId>elasticmq-rest-sqs_3</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>
