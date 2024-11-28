@@ -95,6 +95,22 @@ public class LogAspect {
         return doAroundRepositoryLog(jp);
     }
 
+    @Around("execution(* com.example.fw.common.dynamodb.DynamoDBTransactionManager.commit(..))")
+    public Object aroundDynamoDBTransactionCommitLog(final ProceedingJoinPoint jp) throws Throwable {
+        appLogger.trace(WebFrameworkMessageIds.T_ON_FW_0003, jp.getSignature(), Arrays.asList(jp.getArgs()));
+        // 処理時間を計測しログ出力
+        long startTime = System.nanoTime();
+        try {
+            return jp.proceed();
+        } finally {
+            // 呼び出し処理実行後、処理時間を計測しログ出力
+            long endTime = System.nanoTime();
+            double elapsedTime = SystemDateUtils.calcElaspedTimeByMilliSecounds(startTime, endTime);
+            appLogger.trace(WebFrameworkMessageIds.T_ON_FW_0004, //
+                    jp.getSignature(), Arrays.asList(jp.getArgs()), elapsedTime);
+        }
+    }
+
     private Object doAroundRepositoryLog(final ProceedingJoinPoint jp) throws Throwable {
         appLogger.trace(WebFrameworkMessageIds.T_ON_FW_0001, jp.getSignature(), Arrays.asList(jp.getArgs()));
         // 処理時間を計測しログ出力
