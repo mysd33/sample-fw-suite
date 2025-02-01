@@ -25,6 +25,9 @@
         <elasticmq.version>1.6.9</elasticmq.version>
         <terasoluna.version>5.9.0.RELEASE</terasoluna.version>
         <commons-io.version>2.18.0</commons-io.version>
+        <!-- logback-access -->
+        <logback-access.version>2.0.6</logback-access.version>
+        <logback.version>1.5.16</logback.version>        
     </properties>
     <modules>
         <module>sample-fw-common</module>
@@ -94,6 +97,28 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
+            <!-- logback-access -->
+            <dependency>
+                <groupId>ch.qos.logback.access</groupId>
+                <artifactId>logback-access-common</artifactId>
+                <version>${logback-access.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback.access</groupId>
+                <artifactId>logback-access-tomcat</artifactId>
+                <version>${logback-access.version}</version>
+            </dependency>
+            <!-- https://github.com/qos-ch/logback/issues/908 -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>            
         </dependencies>
     </dependencyManagement>
     <distributionManagement>
