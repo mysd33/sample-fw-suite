@@ -31,6 +31,7 @@
 | | DynamoDBトランザクション管理機能 | DynamoDBのトランザクション管理機能（TransactWriteItems）を利用する操作に対して、AOP機能を利用して、@DynamoDBTransactionalアノテーションによる宣言的トランザクションを実現する機能を提供する。 | ○ | com.example.fw.common.dynamodb |
 | | オブジェクトストレージ（S3）アクセス | AWS SDK for Java 2.xのS3クライアント（S3Client）を使って、S3のアクセス機能を提供する。開発時にS3アクセスできない場合を考慮して通常のファイルシステムへのFakeに切り替える。 | ○ | com.example.fw.common.objectstorage |
 | | HTTPクライアント | WebClientやRestTemplateを利用してREST APIの呼び出しやサーバエラー時の例外の取り扱いを制御する。 | ○ | com.example.fw.common.httpclient |
+| | PDF帳票出力 | Jasper Reportsを利用してPDF帳票作成する。 | ○ | com.example.fw.common.reports |
 | | リトライ・サーキットブレーカ | Spring Cloud Circuit Breaker（Resillience4j）を利用し、REST APIの呼び出しでの一時的な障害に対する遮断やフォールバック処理等を制御する。また、WebClientのリトライ機能でエクスポネンシャルバックオフによりリトライを実現する。なお、AWSリソースのAPI呼び出しは、AWS SDKにてエクスポネンシャルバックオフによりリトライ処理を提供。 | - | - |
 | | 非同期実行依頼 | Spring JMS、Amazon SQS Java Messaging Libraryを利用し、SQSの標準キューを介した非同期実行依頼のメッセージを送信する。 | ○ | com.example.fw.common.async |
 | | スケジュールバッチ起動 | application.ymlに定義した独自のスケジュールバッチ定義を読み込みバッチAPへ非同期実行依頼を実施するSpringBootのCLIアプリケーションを提供する。 | ○ | com.example.fw.common.schedule |
