@@ -98,6 +98,22 @@
                 <artifactId>terasoluna-gfw-web</artifactId>
                 <version>${terasoluna.version}</version>
             </dependency>
+			<!-- TERASOLUNA CodePoint -->
+			<dependency>
+				<groupId>org.terasoluna.gfw.codepoints</groupId>
+				<artifactId>terasoluna-gfw-codepoints-jisx0201</artifactId>
+				<version>${terasoluna.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.terasoluna.gfw.codepoints</groupId>
+				<artifactId>terasoluna-gfw-codepoints-jisx0208</artifactId>
+				<version>${terasoluna.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.terasoluna.gfw.codepoints</groupId>
+				<artifactId>terasoluna-gfw-codepoints-jisx0213kanji</artifactId>
+				<version>${terasoluna.version}</version>
+			</dependency>            
             <!-- Apache Commons IO -->
             <dependency>
                 <groupId>commons-io</groupId>
