@@ -43,19 +43,25 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-		<!-- TERASOLUNA CodePoint -->
-		<dependency>
-			<groupId>org.terasoluna.gfw.codepoints</groupId>
-			<artifactId>terasoluna-gfw-codepoints-jisx0201</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.terasoluna.gfw.codepoints</groupId>
-			<artifactId>terasoluna-gfw-codepoints-jisx0208</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.terasoluna.gfw.codepoints</groupId>
-			<artifactId>terasoluna-gfw-codepoints-jisx0213kanji</artifactId>
-		</dependency>		
+        <!-- MyBatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        
+        <!-- TERASOLUNA CodePoint -->
+        <dependency>
+            <groupId>org.terasoluna.gfw.codepoints</groupId>
+            <artifactId>terasoluna-gfw-codepoints-jisx0201</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.terasoluna.gfw.codepoints</groupId>
+            <artifactId>terasoluna-gfw-codepoints-jisx0208</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.terasoluna.gfw.codepoints</groupId>
+            <artifactId>terasoluna-gfw-codepoints-jisx0213kanji</artifactId>
+        </dependency>
 
         <!-- Lombok -->
         <dependency>
@@ -184,7 +190,7 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
-        
+
         <!-- Jaspter Reports -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
@@ -205,7 +211,7 @@
                     <artifactId>commons-logging</artifactId>
                     <groupId>commons-logging</groupId>
                 </exclusion>
-            </exclusions>           
+            </exclusions>
         </dependency>
         <!-- PDFのパスワード設定する場合に、bouncycastleを利用するため追加定義が必要 -->
         <dependency>
