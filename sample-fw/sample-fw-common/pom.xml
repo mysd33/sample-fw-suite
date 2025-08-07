@@ -122,18 +122,8 @@
 
         <!-- DynamoDB Local -->
         <dependency>
-            <groupId>com.amazonaws</groupId>
+            <groupId>software.amazon.dynamodb</groupId>
             <artifactId>DynamoDBLocal</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.toolchain</groupId>
-                    <artifactId>jetty-jakarta-servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- PostgreSQL -->
@@ -142,7 +132,7 @@
             <artifactId>postgresql</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- Lombok -->
+
 
         <!-- Spring JMS -->
         <dependency>
