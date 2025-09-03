@@ -1,15 +1,11 @@
 package com.example.fw.common.reports;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
@@ -56,16 +52,11 @@ import net.sf.jasperreports.pdf.type.PdfPermissionsEnum;
  */
 @Slf4j
 public abstract class AbstractJasperReportCreator<T> {
-    private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
-    // PDFの一時保存ファイルのプレフィックス
-    private static final String PDF_TEMP_FILE_PREFIX = "report_tmp";
-    // 拡張子
-    private static final String PDF_FILE_EXTENSION = ".pdf";
-    private static final String JASPER_FILE_EXTENSION = ".jasper";
-    private static final String JRXML_FILE_EXTENSION = ".jrxml";
     private static final ApplicationLogger appLogger = LoggerFactory.getApplicationLogger(log);
     private static final MonitoringLogger monitoringLogger = LoggerFactory.getMonitoringLogger(log);
+    // 帳票作成のための設定情報
     private ReportsConfigurationProperties config;
+
     // コンパイル済の帳票様式を保存する一時ディレクトリ
     private Path jasperPath;
     // PDFの一時保存ファイルのディレクトリ（パスを初期化設定後、定期削除のための別スレッドで参照されるためAtomicReferenceにしておく）
@@ -81,9 +72,7 @@ public abstract class AbstractJasperReportCreator<T> {
     }
 
     /**
-     * 初期化処理
-     * 
-     * コンパイル済の帳票様式を保存する一時ディレクトリを作成し、帳票様式をコンパイルする
+     * 初期化処理 
      * 
      * @throws FileNotFoundException jrxmlの様式ファイルの様式ファイルが存在しない場合
      * @throws JRException           様式のコンパイルエラーまたはコンパイル済様式の保存時のエラー
@@ -94,9 +83,9 @@ public abstract class AbstractJasperReportCreator<T> {
         ReportCreator annotation = getClass().getAnnotation(ReportCreator.class);
         reportId = annotation.id();
         reportName = annotation.name();
-
+        
         // コンパイル済の帳票様式を保存する一時ディレクトリを作成する
-        jasperPath = Path.of(TMP_DIR, config.getJasperFileTmpdir());
+        jasperPath = Path.of(ReportsConstants.TMP_DIR, config.getJasperFileTmpdir());
         appLogger.debug("jasperPath: {}", jasperPath);
         // 一時ディレクトリが存在しない場合は作成する
         jasperPath.toFile().mkdirs();
@@ -113,7 +102,7 @@ public abstract class AbstractJasperReportCreator<T> {
         }
 
         // 帳票を一時保存する一時ディレクトリを作成する
-        pdfTempPath.set(Path.of(TMP_DIR, config.getReportTmpdir()));
+        pdfTempPath.set(Path.of(ReportsConstants.TMP_DIR, config.getReportTmpdir()));
         appLogger.debug("pdfTempPath: {}", pdfTempPath);
         // 一時ディレクトリが存在しない場合は作成する
         pdfTempPath.get().toFile().mkdirs();
@@ -260,7 +249,8 @@ public abstract class AbstractJasperReportCreator<T> {
      * @return コンパイル済の帳票様式ファイル
      */
     private File getJasperFile(final File jrxmlFile) {
-        String jasperFileName = jrxmlFile.getName().replace(JRXML_FILE_EXTENSION, JASPER_FILE_EXTENSION);
+        String jasperFileName = jrxmlFile.getName().replace(ReportsConstants.JRXML_FILE_EXTENSION,
+                ReportsConstants.JASPER_FILE_EXTENSION);
         // 一時フォルダにあるファイルパスを返却
         return jasperPath.resolve(jasperFileName).toFile();
     }
@@ -369,10 +359,8 @@ public abstract class AbstractJasperReportCreator<T> {
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(baos));
         exporter.exportReport();
         byte[] bytes = baos.toByteArray();
-        InputStream is = new ByteArrayInputStream(bytes);
-        return Report.builder()//
-                .inputStream(is)//
-                .size(bytes.length)//
+        return InMemoryReport.builder()//
+                .data(bytes)//
                 .build();
     }
 
@@ -388,7 +376,8 @@ public abstract class AbstractJasperReportCreator<T> {
      */
     private Report exportPDF(final JasperPrint jasperPrint, final PDFOptions options) throws JRException, IOException {
         // メモリを極力使わないよう、PDFのファイルサイズが大きい場合も考慮し一時ファイルに出力してInputStreamで返却するようにする
-        Path tempFilePath = Files.createTempFile(pdfTempPath.get(), PDF_TEMP_FILE_PREFIX, PDF_FILE_EXTENSION);
+        Path tempFilePath = Files.createTempFile(pdfTempPath.get(), ReportsConstants.PDF_TEMP_FILE_PREFIX,
+                ReportsConstants.PDF_FILE_EXTENSION);
 
         // （参考）通常のPDF出力の実装例
         // JasperExportManager.exportReportToPdfFile(jasperPrint,
@@ -406,10 +395,8 @@ public abstract class AbstractJasperReportCreator<T> {
             exporter.exportReport();
         }
         // 一時ファイルのInputStreamを返す
-        InputStream is = new BufferedInputStream(new FileInputStream(tempFilePath.toFile()));
-        return Report.builder()//
-                .inputStream(is)//
-                .size(Files.size(tempFilePath))//
+        return DefaultReport.builder()//
+                .file(tempFilePath.toFile())//
                 .build();
     }
 

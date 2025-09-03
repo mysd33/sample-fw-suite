@@ -27,7 +27,7 @@
         <terasoluna.version>5.10.0.RELEASE</terasoluna.version>
         <commons-io.version>2.19.0</commons-io.version>
         <jasperreports.version>7.0.3</jasperreports.version>
-        <bouncycastle.version>1.81</bouncycastle.version>
+        <dss.bom.version>6.2</dss.bom.version>
         <logback-access.version>2.0.6</logback-access.version>
     </properties>
     <modules>
@@ -131,10 +131,13 @@
                 <artifactId>jasperreports-pdf</artifactId>
                 <version>${jasperreports.version}</version>
             </dependency>
+            <!-- DSS -->
             <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk18on</artifactId>
-                <version>${bouncycastle.version}</version>
+                <groupId>eu.europa.ec.joinup.sd-dss</groupId>
+                <artifactId>dss-bom</artifactId>
+                <version>${dss.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- logback-access -->
             <dependency>
