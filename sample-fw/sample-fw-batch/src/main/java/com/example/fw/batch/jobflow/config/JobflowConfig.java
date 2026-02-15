@@ -4,10 +4,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.example.fw.batch.core.config.SpringBatchConfigurationProperties;
 import com.example.fw.batch.jobflow.sfn.DefaultSfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSender;
+import com.example.fw.batch.jobflow.sfn.SfnTaskResultSenderStub;
 
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
@@ -31,6 +33,7 @@ public class JobflowConfig {
      * StepFunctionsクライアント
      */
     @Bean
+    @Profile("!dev")
     SfnClient sfnClient() {
         Region region = Region.of(jobflowConfigurationProperties.getRegion());
         return SfnClient.builder().httpClientBuilder((ApacheHttpClient.builder()))//
@@ -42,8 +45,17 @@ public class JobflowConfig {
      * StepFunctionsでのジョブ間の結果受け渡し用のクラス
      */
     @Bean
+    @Profile("!dev")
     SfnTaskResultSender sfnTaskResultSender() {
         return new DefaultSfnTaskResultSender(sfnClient());
     }
 
+    /**
+     * 開発時はSfnClientの代わりにSfnTaskResultSenderStubを使用する
+     */
+    @Bean
+    @Profile("dev")
+    SfnTaskResultSender sfnTaskResultSenderStub() {
+        return new SfnTaskResultSenderStub();
+    }
 }
