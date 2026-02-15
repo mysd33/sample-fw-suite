@@ -11,5 +11,5 @@ public interface SfnTaskResultSender {
      * @param taskToken タスクトークン
      * @param output    タスクの実行結果
      */
-    void sendTaskSuccess(String taskToken, String output);
+    void sendTaskSuccess(String taskToken, Object output);
 }

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import com.example.fw.batch.core.config.SpringBatchConfigurationProperties;
 import com.example.fw.batch.jobflow.sfn.DefaultSfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSender;
-import com.example.fw.batch.jobflow.sfn.SfnTaskResultSenderStub;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
@@ -18,22 +18,22 @@ import software.amazon.awssdk.services.sfn.SfnClient;
 
 /**
  * 
- * ジョブフローによる起動用の設定クラス
+ * ジョブフローによる起動用の設定クラス（本番用）
  *
  */
+@Profile("!dev")
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(JobflowConfigurationProperties.class)
 // コマンドライン実行が有効な場合この設定も有効化する
 @ConditionalOnProperty(prefix = SpringBatchConfigurationProperties.PROPERTY_PREFIX, name = "type", havingValue = "commandline")
-public class JobflowConfig {
+public class JobflowProdConfig {
     private final JobflowConfigurationProperties jobflowConfigurationProperties;
 
     /**
      * StepFunctionsクライアント
      */
     @Bean
-    @Profile("!dev")
     SfnClient sfnClient() {
         Region region = Region.of(jobflowConfigurationProperties.getRegion());
         return SfnClient.builder().httpClientBuilder((ApacheHttpClient.builder()))//
@@ -45,17 +45,8 @@ public class JobflowConfig {
      * StepFunctionsでのジョブ間の結果受け渡し用のクラス
      */
     @Bean
-    @Profile("!dev")
-    SfnTaskResultSender sfnTaskResultSender() {
-        return new DefaultSfnTaskResultSender(sfnClient());
+    SfnTaskResultSender sfnTaskResultSender(ObjectMapper objectMapper) {
+        return new DefaultSfnTaskResultSender(objectMapper, sfnClient());
     }
 
-    /**
-     * 開発時はSfnClientの代わりにSfnTaskResultSenderStubを使用する
-     */
-    @Bean
-    @Profile("dev")
-    SfnTaskResultSender sfnTaskResultSenderStub() {
-        return new SfnTaskResultSenderStub();
-    }
 }
