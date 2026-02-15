@@ -36,6 +36,12 @@
             <groupId>org.elasticmq</groupId>
             <artifactId>elasticmq-rest-sqs_3</artifactId>
         </dependency>
+        
+        <!-- AWS SDK StepFunctions -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sfn</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
