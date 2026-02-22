@@ -9,7 +9,8 @@ import org.springframework.batch.core.converter.JobParametersConverter;
 /**
  * Step Functionから渡されるJobParametersを変換するJobParametersConverterの実装クラス<br>
  * 
- * ジョブパラメータの値がJSON形式で受け取るため、 デフォルト（DefaultJobParametersConverter）のカンマ区切りの
+ * ジョブパラメータの値がJSON形式で受け取るため、配列形式等があると、
+ * デフォルト（DefaultJobParametersConverter）のカンマ区切りの
  * 「key=value,type,identifying」形式のパラメータを変換できないため、値部分をそのまま文字型のパラメータとして変換する
  * 独自のJobParametersConverterを実装する。
  */

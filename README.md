@@ -21,6 +21,7 @@
 | | トランサクショントークンチェック | TERASOLUNA Server Frameworkの共通ライブラリの機能を利用して、不正な画面遷移を防止するトランザクションチェック機能を提供する 。 | - | com.example.fw.web.token |
 | | Open APIドキュメント生成 | Springdoc-openapiの機能で、RestController等の実装、アノテーション情報からOpen APIドキュメントをjson、yaml、html（Swagger-UI）形式を提供する 。 | - | - |
 | バッチ | バッチAP実行制御 | Spring BootおよびSpringBatchによりコマンドラインで指定された対象のジョブを起動する機能を提供する。また、SpringBatchに関する実行制御機能を提供する。 | ○ | com.example.fw.batch.core |
+| | ジョブフロー実行支援 | StepFunctionsによるジョブフロー実行の際に、パラメータの引き渡しや、後続ジョブへの実行結果の受け渡しを支援する機能を提供する。 | ○ | com.example.fw.batch.jobflow |
 | | 非同期AP実行制御 | Spring JMSとAmazon SQS Java Messaging Libraryを利用しSQSの標準キューを介した非同期実行依頼のメッセージを受信し、SpringBatchにより対象のジョブを起動する機能を提供する。 | ○ | com.example.fw.batch.async |
 | | 大量データアクセス | SpringBatchのItemReader、ItemWriterを利用し、大容量のファイルやDBのレコードを逐次読み書きする機能を提供する。 | - | - |
 | | 集約例外ハンドリング（バッチ） | エラー（例外）発生時、SpringBatchの機能によりDBのロールバックするとともに、JobExecutionListenerを利用しエラーログの出力といった共通的なエラーハンドリングを実施する。 | ○ | com.example.fw.batch.exeption<br/>com.example.fw.batch.listener |
