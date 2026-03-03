@@ -48,14 +48,14 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
-        
+
         <!-- TERASOLUNA String Process -->
         <dependency>
             <groupId>org.terasoluna.gfw</groupId>
             <artifactId>terasoluna-gfw-string</artifactId>
             <version>${terasoluna.version}</version>
         </dependency>
-        
+
         <!-- TERASOLUNA CodePoint -->
         <dependency>
             <groupId>org.terasoluna.gfw.codepoints</groupId>
@@ -227,7 +227,7 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk18on</artifactId>
-        </dependency>        
+        </dependency>
         <!-- DSS -->
         <dependency>
             <groupId>eu.europa.ec.joinup.sd-dss</groupId>
@@ -243,12 +243,16 @@
         </dependency>
         <dependency>
             <groupId>eu.europa.ec.joinup.sd-dss</groupId>
+            <artifactId>dss-cms-object</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>eu.europa.ec.joinup.sd-dss</groupId>
             <artifactId>dss-utils-apache-commons</artifactId>
         </dependency>
         <!-- AWS SDK KMS -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>kms</artifactId>
-        </dependency>        
+        </dependency>
     </dependencies>
 </project>

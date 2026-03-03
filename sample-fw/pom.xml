@@ -27,7 +27,7 @@
         <terasoluna.version>5.10.0.RELEASE</terasoluna.version>
         <commons-io.version>2.19.0</commons-io.version>
         <jasperreports.version>7.0.3</jasperreports.version>
-        <dss.bom.version>6.2</dss.bom.version>
+        <dss.bom.version>6.3</dss.bom.version>
         <logback-access.version>2.0.6</logback-access.version>
     </properties>
     <modules>
