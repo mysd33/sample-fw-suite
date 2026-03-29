@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import com.example.fw.batch.core.config.SpringBatchConfigurationProperties;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSenderStub;
+import com.example.fw.batch.jobflow.sfn.service.SfnTaskResultPersistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,8 @@ public class JobflowLocalConfig {
      * 開発時はSfnClientの代わりにSfnTaskResultSenderStubを使用する
      */
     @Bean
-    SfnTaskResultSender sfnTaskResultSenderStub(ObjectMapper objectMapper) {
-        return new SfnTaskResultSenderStub(objectMapper);
+    SfnTaskResultSender sfnTaskResultSenderStub(ObjectMapper objectMapper,
+            SfnTaskResultPersistService taskResultPersistService) {
+        return new SfnTaskResultSenderStub(objectMapper, taskResultPersistService);
     }
 }

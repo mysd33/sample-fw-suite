@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import com.example.fw.batch.core.config.SpringBatchConfigurationProperties;
 import com.example.fw.batch.jobflow.sfn.DefaultSfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSender;
+import com.example.fw.batch.jobflow.sfn.service.SfnTaskResultPersistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -45,8 +46,9 @@ public class JobflowProdConfig {
      * StepFunctionsでのジョブ間の結果受け渡し用のクラス
      */
     @Bean
-    SfnTaskResultSender sfnTaskResultSender(ObjectMapper objectMapper) {
-        return new DefaultSfnTaskResultSender(objectMapper, sfnClient());
+    SfnTaskResultSender sfnTaskResultSender(ObjectMapper objectMapper,
+            SfnTaskResultPersistService taskResultPersistService) {
+        return new DefaultSfnTaskResultSender(objectMapper, taskResultPersistService, sfnClient());
     }
 
 }
