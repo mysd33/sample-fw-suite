@@ -12,7 +12,7 @@
     <name>app-parent</name>
     <packaging>pom</packaging>
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <bootstrap.version>5.3.8</bootstrap.version>
         <bootstrap-icons.version>1.13.1</bootstrap-icons.version>
         <logstash-logback-encoder.version>9.0</logstash-logback-encoder.version>
