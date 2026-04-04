@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+    namespace="com.example.fw.batch.jobflow.sfn.repository.SfnTaskResultRepository">
+    <!-- マッピング定義 -->
+    <!-- １件insert -->
+    <insert id="insert">
+        INSERT INTO sfn_send_task_result (
+            job_instance_id,
+            task_result,
+            created_at)
+        VALUES (
+            #{jobInstanceId},
+            #{taskResult},
+            #{createdAt})
+    </insert>
+    
+    <!-- １件検索 -->
+    <select id="findById" resultType="com.example.fw.batch.jobflow.sfn.model.SfnTaskResult">
+        SELECT
+            job_instance_id,
+            task_result,
+            created_at
+        FROM
+            sfn_send_task_result
+        WHERE
+            job_instance_id = #{jobInstanceId}
+    </select>
+</mapper>

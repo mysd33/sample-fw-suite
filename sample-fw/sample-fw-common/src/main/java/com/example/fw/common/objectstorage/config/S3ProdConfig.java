@@ -5,12 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.amazonaws.xray.interceptors.TracingInterceptor;
 import com.example.fw.common.objectstorage.ObjectStorageFileAccessor;
 import com.example.fw.common.objectstorage.S3ObjectStorageFileAccessor;
 
 import lombok.RequiredArgsConstructor;
-import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -51,6 +49,7 @@ public class S3ProdConfig {
     /**
      * S3クライアント（X-Rayトレースあり）
      */
+    /*
     @Profile("xray")
     @Bean
     S3Client s3ClientWithXRay() {
@@ -63,5 +62,5 @@ public class S3ProdConfig {
                         ClientOverrideConfiguration.builder().addExecutionInterceptor(new TracingInterceptor()).build())                
                 .build();        
     }
-
+    */
 }

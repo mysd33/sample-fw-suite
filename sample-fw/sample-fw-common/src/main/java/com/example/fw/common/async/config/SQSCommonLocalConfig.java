@@ -7,12 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.amazonaws.xray.interceptors.TracingInterceptor;
-
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -51,21 +48,19 @@ public class SQSCommonLocalConfig {
     /**
      * ElastiqMQ(SQSLocal)起動する場合のSQSClientの定義(X-Rayトレーシングあり）
      */
-    @Profile("xray")
-    @Bean
-    SqsClient sqsClientFactoryWithXRay() {
-        // ダミーのクレデンシャル
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create("dummy", "dummy");
-        Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
-        return SqsClient.builder()                
-                // 個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
-                .overrideConfiguration(
-                        ClientOverrideConfiguration.builder().addExecutionInterceptor(new TracingInterceptor()).build())
-                .httpClientBuilder((ApacheHttpClient.builder()))//
-                .region(region)//
-                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
-                .endpointOverride(URI.create(HTTP_LOCALHOST + sqsCommonConfigurationProperties.getSqslocal().getPort()))
-                .build();
-    }
-
+    /*
+     * @Profile("xray")
+     * 
+     * @Bean SqsClient sqsClientFactoryWithXRay() { // ダミーのクレデンシャル
+     * AwsBasicCredentials awsCreds = AwsBasicCredentials.create("dummy", "dummy");
+     * Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
+     * return SqsClient.builder() // 個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
+     * .overrideConfiguration(
+     * ClientOverrideConfiguration.builder().addExecutionInterceptor(new
+     * TracingInterceptor()).build())
+     * .httpClientBuilder((ApacheHttpClient.builder()))// .region(region)//
+     * .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+     * .endpointOverride(URI.create(HTTP_LOCALHOST +
+     * sqsCommonConfigurationProperties.getSqslocal().getPort())) .build(); }
+     */
 }

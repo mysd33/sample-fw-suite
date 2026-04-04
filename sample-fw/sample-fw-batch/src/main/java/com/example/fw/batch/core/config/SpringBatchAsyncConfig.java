@@ -1,6 +1,8 @@
 package com.example.fw.batch.core.config;
 
-import org.springframework.batch.core.JobExecutionListener;
+import org.springframework.batch.core.converter.DefaultJobParametersConverter;
+import org.springframework.batch.core.converter.JobParametersConverter;
+import org.springframework.batch.core.listener.JobExecutionListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,15 @@ import lombok.RequiredArgsConstructor;
 @EnableConfigurationProperties(SpringBatchConfigurationProperties.class)
 @ConditionalOnProperty(prefix = SpringBatchConfigurationProperties.PROPERTY_PREFIX, name = "type", havingValue = "async", matchIfMissing = true)
 public class SpringBatchAsyncConfig {
+
+    /**
+     * ジョブパラメータのコンバータの定義
+     */
+    @Bean
+    JobParametersConverter jobParametersConverter() {
+        return new DefaultJobParametersConverter();
+    }
+
     /**
      * ジョブの実行に関わる例外ハンドリング、ログ出力機能の設定
      */

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.fw.common.httpclient.WebClientLoggingFilter;
-import com.example.fw.common.httpclient.WebClientXrayFilter;
 
 import io.micrometer.context.ContextRegistry;
 import jakarta.annotation.PostConstruct;
@@ -60,20 +59,22 @@ public class WebClientConfig {
      * WebClientクラス（X-Rayトレーシングあり）
      * 
      */
-    @Profile("xray")
-    @Bean
-    WebClient webClientWithXRay(WebClient.Builder builder, WebClientLoggingFilter loggingFilter,
-            WebClientXrayFilter xrayFilter) {
-        return builder.filter(loggingFilter.filter()).filter(xrayFilter.filter()).build();
-    }
-
+    /*
+     * @Profile("xray")
+     * 
+     * @Bean WebClient webClientWithXRay(WebClient.Builder builder,
+     * WebClientLoggingFilter loggingFilter, WebClientXrayFilter xrayFilter) {
+     * return
+     * builder.filter(loggingFilter.filter()).filter(xrayFilter.filter()).build(); }
+     */
     /**
      * WebClientでのAWS X-RayのHttpクライアントトレーシング設定
      * 
      */
-    @Profile("xray")
-    @Bean
-    WebClientXrayFilter webClientXrayFilter() {
-        return new WebClientXrayFilter();
-    }
+    /*
+     * @Profile("xray")
+     * 
+     * @Bean WebClientXrayFilter webClientXrayFilter() { return new
+     * WebClientXrayFilter(); }
+     */
 }

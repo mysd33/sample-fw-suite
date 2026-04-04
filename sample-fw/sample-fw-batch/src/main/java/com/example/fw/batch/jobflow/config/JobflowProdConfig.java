@@ -10,7 +10,7 @@ import com.example.fw.batch.core.config.SpringBatchConfigurationProperties;
 import com.example.fw.batch.jobflow.sfn.DefaultSfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.service.SfnTaskResultPersistService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;

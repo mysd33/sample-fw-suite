@@ -2,8 +2,8 @@ package com.example.fw.batch.core.listener;
 
 import java.time.LocalDateTime;
 
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobExecutionListener;
+import org.springframework.batch.core.job.JobExecution;
+import org.springframework.batch.core.listener.JobExecutionListener;
 
 import com.example.fw.batch.core.exception.ExceptionHandler;
 import com.example.fw.batch.message.BatchFrameworkMessageIds;
@@ -24,13 +24,13 @@ public class CommandLineJobExecutionListener implements JobExecutionListener {
     private final ExceptionHandler defaultExceptionHandler;
 
     @Override
-    public void beforeJob(JobExecution jobExecution) {
+    public void beforeJob(final JobExecution jobExecution) {
         appLogger.info(BatchFrameworkMessageIds.I_FW_BTCTRL_0001, jobExecution.getJobInstance().getJobName(),
-                jobExecution.getJobId(), jobExecution.getId());
+                jobExecution.getJobInstanceId(), jobExecution.getId());
     }
 
     @Override
-    public void afterJob(JobExecution jobExecution) {
+    public void afterJob(final JobExecution jobExecution) {
         LocalDateTime startTime = jobExecution.getStartTime();
         LocalDateTime endTime = jobExecution.getEndTime();
         double elapsedTime = 0D;
@@ -38,7 +38,7 @@ public class CommandLineJobExecutionListener implements JobExecutionListener {
             elapsedTime = SystemDateUtils.calcElapsedTimeByMilliSeconds(startTime, endTime);
         }
         appLogger.info(BatchFrameworkMessageIds.I_FW_BTCTRL_0002, elapsedTime, startTime,
-                jobExecution.getJobInstance().getJobName(), jobExecution.getJobId(), jobExecution.getId(),
+                jobExecution.getJobInstance().getJobName(), jobExecution.getJobInstanceId(), jobExecution.getId(),
                 jobExecution.getExitStatus().getExitCode());
 
         // 例外発生時に集約例外ハンドリング

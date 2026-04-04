@@ -3,7 +3,7 @@ package com.example.fw.common.async.repository;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.util.Assert;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+//import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.example.fw.common.async.model.JobRequest;
 import com.example.fw.common.logging.ApplicationLogger;
 import com.example.fw.common.logging.LoggerFactory;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  * JobRequestRepositoryの実装クラス キューにSQSを使用し、JobRequestを登録する
  *
  */
-@XRayEnabled
+//@XRayEnabled
 @RequiredArgsConstructor
 @Slf4j
 public class JobRequestRepositoryImpl implements JobRequestRepository {

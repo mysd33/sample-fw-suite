@@ -5,12 +5,12 @@ import com.example.fw.batch.message.BatchFrameworkMessageIds;
 import com.example.fw.common.exception.SystemException;
 import com.example.fw.common.logging.ApplicationLogger;
 import com.example.fw.common.logging.LoggerFactory;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.services.sfn.SfnClient;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * StepFunctionsのタスクの実行結果を送信するためのデフォルト実装
@@ -28,7 +28,7 @@ public class DefaultSfnTaskResultSender implements SfnTaskResultSender {
         String outputJson;
         try {
             outputJson = objectMapper.writeValueAsString(output);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new SystemException(e, BatchFrameworkMessageIds.E_FW_JBFLW_9001, output.toString());
         }
         sendTaskSuccessByJsonString(jobInstanceId, taskToken, outputJson);

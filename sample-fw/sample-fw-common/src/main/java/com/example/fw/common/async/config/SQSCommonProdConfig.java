@@ -5,10 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.amazonaws.xray.interceptors.TracingInterceptor;
-
 import lombok.RequiredArgsConstructor;
-import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -19,7 +16,7 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 @Profile("production")
 @Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties({SQSCommonConfigurationProperties.class})
+@EnableConfigurationProperties({ SQSCommonConfigurationProperties.class })
 public class SQSCommonProdConfig {
     private final SQSCommonConfigurationProperties sqsCommonConfigurationProperties;
 
@@ -32,24 +29,24 @@ public class SQSCommonProdConfig {
         Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
         return SqsClient.builder()//
                 .httpClientBuilder((ApacheHttpClient.builder()))//
-                .region(region)//                
+                .region(region)//
                 .build();
     }
 
     /**
      * SQSConnectionFactoryの定義(X-Rayトレーシングあり）
      */
-    @Profile("xray")
-    @Bean
-    SqsClient sqsClientWithXRay() {
-        Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
-        return SqsClient.builder()
-                // 個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
-                .overrideConfiguration(
-                        ClientOverrideConfiguration.builder().addExecutionInterceptor(new TracingInterceptor()).build())
-                .httpClientBuilder((ApacheHttpClient.builder()))//                
-                .region(region)
-                .build();
-    }
+    /*
+     * @Profile("xray")
+     * 
+     * @Bean SqsClient sqsClientWithXRay() { Region region =
+     * Region.of(sqsCommonConfigurationProperties.getRegion()); return
+     * SqsClient.builder() // 個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
+     * .overrideConfiguration(
+     * ClientOverrideConfiguration.builder().addExecutionInterceptor(new
+     * TracingInterceptor()).build())
+     * .httpClientBuilder((ApacheHttpClient.builder()))// .region(region) .build();
+     * }
+     */
 
 }

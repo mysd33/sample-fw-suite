@@ -10,36 +10,44 @@
     </parent>
     <artifactId>sample-fw-web</artifactId>
     <name>sample-fw-web</name>
+    <properties>
+        <framework.version>1.0-SNAPSHOT</framework.version>
+    </properties>
     <dependencies>
         <!-- Framework Common  -->
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>sample-fw-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${framework.version}</version>
         </dependency>
-        <!-- Spring Boot Web -->
+
+        <!-- Spring Boot Starter WebMVC -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
-        <!-- Thymeleaf -->
+
+        <!-- Spring Boot Starter Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- Spring Security -->
+
+        <!-- Spring Boot Starter Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- MyBatis -->
+        
+        <!-- MyBatis Spring Boot Starter-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <optional>true</optional>
         </dependency>
+
         <!-- TERASOLUNA Web (for TransactionToken Check) -->
         <dependency>
             <groupId>org.terasoluna.gfw</groupId>
@@ -64,7 +72,7 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
         </dependency>
-        
+
         <!-- Springdoc-openapi -->
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -74,7 +82,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <!-- logback-access -->
         <dependency>

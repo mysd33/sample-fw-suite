@@ -10,25 +10,35 @@
     </parent>
     <artifactId>sample-fw-batch</artifactId>
     <name>sample-fw-batch</name>
+    <properties>
+        <framework.version>1.0-SNAPSHOT</framework.version>
+    </properties>
     <dependencies>
         <!-- Framework Common  -->
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>sample-fw-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${framework.version}</version>
         </dependency>
 
-        <!-- SpringBatch -->
+        <!-- Spring Boot Starter Batch With JDBC-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch</artifactId>
+            <artifactId>spring-boot-starter-batch-jdbc</artifactId>
+        </dependency>
+        
+        <!-- MyBatis Spring Boot Starter-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
 
         <!-- ElasticMQ (SQS Local) -->
@@ -36,7 +46,7 @@
             <groupId>org.elasticmq</groupId>
             <artifactId>elasticmq-rest-sqs_3</artifactId>
         </dependency>
-        
+
         <!-- AWS SDK StepFunctions -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>

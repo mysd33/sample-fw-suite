@@ -2,9 +2,10 @@ package com.example.fw.batch.jobflow.converter;
 
 import java.util.Properties;
 
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.converter.JobParametersConverter;
+import org.springframework.batch.core.job.parameters.JobParameter;
+import org.springframework.batch.core.job.parameters.JobParameters;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 
 /**
  * Step Functionから渡されるJobParametersを変換するJobParametersConverterの実装クラス<br>
@@ -32,8 +33,8 @@ public class SfnJobParametersConverter implements JobParametersConverter {
     public Properties getProperties(JobParameters params) {
         Properties properties = new Properties();
         if (params != null) {
-            for (String key : params.getParameters().keySet()) {
-                properties.setProperty(key, params.getString(key));
+            for (JobParameter<?> param : params.parameters()) {
+                properties.setProperty(param.name(), param.value().toString());
             }
         }
         return properties;

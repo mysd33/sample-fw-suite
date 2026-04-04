@@ -10,9 +10,9 @@ import com.example.fw.batch.core.config.SpringBatchConfigurationProperties;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSender;
 import com.example.fw.batch.jobflow.sfn.SfnTaskResultSenderStub;
 import com.example.fw.batch.jobflow.sfn.service.SfnTaskResultPersistService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * 

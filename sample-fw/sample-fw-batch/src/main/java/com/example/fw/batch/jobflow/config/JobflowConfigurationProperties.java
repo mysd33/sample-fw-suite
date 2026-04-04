@@ -13,8 +13,10 @@ import lombok.Data;
 @ConfigurationProperties(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX)
 public class JobflowConfigurationProperties {
     // ジョブフローのプロパティプレフィックス
-    static final String PROPERTY_PREFIX = FrameworkConstants.PROPERTY_BASE_NAME + "jobflow";
+    public static final String PROPERTY_PREFIX = FrameworkConstants.PROPERTY_BASE_NAME + "jobflow";
     // リージョン（デフォルト: ap-northeast-1）
     private String region = "ap-northeast-1";
 
+    // StepFunctionsのタスクトークンをOS環境変数から取得する場合の環境変数名
+    private String taskTokenEnvName = "TASK_TOKEN";
 }
