@@ -43,7 +43,7 @@ public class SfnTaskResultSenderStub implements SfnTaskResultSender {
 
     @Override
     public void resendTaskSuccessByJsonString(String taskToken, String outputJson) {
-        appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0001, taskToken, outputJson);
+        appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0002, taskToken, outputJson);
         // 再送信なのでDBの永続化は行わない
         // StepFunctionsには送信せず、ログ出力のみで完了とする
     }
