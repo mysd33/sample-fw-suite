@@ -30,7 +30,7 @@ public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistS
                 .taskResult(taskResult)//
                 .createdAt(systemDate.now()).build();
 
-        repository.insert(result);
+        repository.upsert(result);
     }
 
     @Override

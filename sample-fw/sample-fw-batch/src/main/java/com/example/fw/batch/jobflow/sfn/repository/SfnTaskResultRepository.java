@@ -10,11 +10,12 @@ import com.example.fw.batch.jobflow.sfn.model.SfnTaskResult;
 @Mapper
 public interface SfnTaskResultRepository {
     /**
-     * タスク実行結果を保存する
+     * タスク実行結果を保存する<br>
+     * 既に同じジョブインスタンスIDのレコードが存在する場合は上書き保存する
      * 
      * @param taskResult タスク実行結果
      */
-    void insert(SfnTaskResult taskResult);
+    void upsert(SfnTaskResult taskResult);
 
     /**
      * ジョブインスタンスIDに基づいてタスク実行結果を取得する

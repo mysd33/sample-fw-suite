@@ -4,18 +4,36 @@
 <mapper
     namespace="com.example.fw.batch.jobflow.sfn.repository.SfnTaskResultRepository">
     <!-- マッピング定義 -->
-    <!-- １件insert -->
-    <insert id="insert">
-        INSERT INTO sfn_send_task_result (
-            job_instance_id,
-            task_result,
-            created_at)
-        VALUES (
+    <!-- マージ -->
+    <update id="upsert" parameterType="com.example.fw.batch.jobflow.sfn.model.SfnTaskResult">
+        MERGE INTO sfn_send_task_result AS target
+        USING (VALUES (
             #{jobInstanceId},
             #{taskResult},
-            #{createdAt})
-    </insert>
-    
+            #{createdAt}
+        )) AS source (
+            job_instance_id,
+            task_result,
+            created_at
+        )
+        ON target.job_instance_id = source.job_instance_id
+        WHEN MATCHED THEN
+            UPDATE SET
+                task_result = source.task_result,
+                created_at = source.created_at
+        WHEN NOT MATCHED THEN
+            INSERT (
+                job_instance_id,
+                task_result,
+                created_at
+            )
+            VALUES (
+                source.job_instance_id,
+                source.task_result,
+                source.created_at
+            )
+    </update>
+
     <!-- １件検索 -->
     <select id="findById" resultType="com.example.fw.batch.jobflow.sfn.model.SfnTaskResult">
         SELECT
