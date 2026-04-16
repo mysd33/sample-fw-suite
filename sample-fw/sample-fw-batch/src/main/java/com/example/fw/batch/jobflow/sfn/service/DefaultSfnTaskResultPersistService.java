@@ -2,7 +2,6 @@ package com.example.fw.batch.jobflow.sfn.service;
 
 import org.springframework.batch.core.scope.context.JobContext;
 import org.springframework.batch.core.scope.context.JobSynchronizationManager;
-import org.springframework.stereotype.Service;
 
 import com.example.fw.batch.jobflow.sfn.model.SfnTaskResult;
 import com.example.fw.batch.jobflow.sfn.repository.SfnTaskResultRepository;
@@ -10,8 +9,10 @@ import com.example.fw.common.systemdate.SystemDate;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Step Functionsのタスク実行結果を永続化するサービスのデフォルト実装
+ */
 @RequiredArgsConstructor
-@Service
 public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistService {
     private final SfnTaskResultRepository repository;
     private final SystemDate systemDate;
@@ -20,8 +21,10 @@ public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistS
     public void createTaskResult(String taskResult) {
         // 現在のジョブコンテキストからジョブインスタンスIDを取得する
         JobContext jobContext = JobSynchronizationManager.getContext();
+        if (jobContext == null) {
+            throw new IllegalStateException("JobContextを取得できません");
+        }
         long jobInstanceId = jobContext.getJobExecution().getJobInstanceId();
-
         SfnTaskResult result = SfnTaskResult.builder()//
                 .jobInstanceId(jobInstanceId)//
                 .taskResult(taskResult)//

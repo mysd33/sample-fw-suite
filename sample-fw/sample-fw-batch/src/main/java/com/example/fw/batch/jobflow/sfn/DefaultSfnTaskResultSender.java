@@ -44,8 +44,8 @@ public class DefaultSfnTaskResultSender implements SfnTaskResultSender {
     }
 
     @Override
-    public void resendTaskSuccessByJsonString(long jobInstanceId, String taskToken, String outputJson) {
-        appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0002, jobInstanceId, taskToken, outputJson);
+    public void resendTaskSuccessByJsonString(String taskToken, String outputJson) {
+        appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0002, taskToken, outputJson);
         // 再送信なのでDBの永続化は行わない
         // StepFunctionsへタスクの実行成功を送信する
         sfnClient.sendTaskSuccess(builder -> builder.taskToken(taskToken).output(outputJson));
