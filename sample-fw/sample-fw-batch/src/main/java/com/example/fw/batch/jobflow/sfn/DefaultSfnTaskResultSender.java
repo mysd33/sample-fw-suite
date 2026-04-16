@@ -24,28 +24,28 @@ public class DefaultSfnTaskResultSender implements SfnTaskResultSender {
     private final SfnClient sfnClient;
 
     @Override
-    public void sendTaskSuccess(long jobInstanceId, String taskToken, Object output) {
+    public void sendTaskSuccess(String taskToken, Object output) {
         String outputJson;
         try {
             outputJson = objectMapper.writeValueAsString(output);
         } catch (JacksonException e) {
             throw new SystemException(e, BatchFrameworkMessageIds.E_FW_JBFLW_9001, output.toString());
         }
-        sendTaskSuccessByJsonString(jobInstanceId, taskToken, outputJson);
+        sendTaskSuccessByJsonString(taskToken, outputJson);
     }
 
     @Override
-    public void sendTaskSuccessByJsonString(long jobInstanceId, String taskToken, String outputJson) {
+    public void sendTaskSuccessByJsonString(String taskToken, String outputJson) {
         appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0001, taskToken, outputJson);
         // 処理結果をDBへ永続化しておく
-        taskResultPersistService.createTaskResult(jobInstanceId, outputJson);
+        taskResultPersistService.createTaskResult(outputJson);
         // StepFunctionsへタスクの実行成功を送信する
         sfnClient.sendTaskSuccess(builder -> builder.taskToken(taskToken).output(outputJson));
     }
 
     @Override
     public void resendTaskSuccessByJsonString(long jobInstanceId, String taskToken, String outputJson) {
-        appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0001, taskToken, outputJson);
+        appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0002, jobInstanceId, taskToken, outputJson);
         // 再送信なのでDBの永続化は行わない
         // StepFunctionsへタスクの実行成功を送信する
         sfnClient.sendTaskSuccess(builder -> builder.taskToken(taskToken).output(outputJson));

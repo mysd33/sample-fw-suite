@@ -23,21 +23,21 @@ public class SfnTaskResultSenderStub implements SfnTaskResultSender {
     private final SfnTaskResultPersistService taskResultPersistService;
 
     @Override
-    public void sendTaskSuccess(long jobInstanceId, String taskToken, Object output) {
+    public void sendTaskSuccess(String taskToken, Object output) {
         String outputJson;
         try {
             outputJson = objectMapper.writeValueAsString(output);
         } catch (JacksonException e) {
             throw new SystemException(e, BatchFrameworkMessageIds.E_FW_JBFLW_9001, output.toString());
         }
-        sendTaskSuccessByJsonString(jobInstanceId, taskToken, outputJson);
+        sendTaskSuccessByJsonString(taskToken, outputJson);
     }
 
     @Override
-    public void sendTaskSuccessByJsonString(long jobInstanceId, String taskToken, String outputJson) {
+    public void sendTaskSuccessByJsonString(String taskToken, String outputJson) {
         appLogger.info(BatchFrameworkMessageIds.I_FW_JBFLW_0001, taskToken, outputJson);
         // 処理結果をDBへ永続化しておく
-        taskResultPersistService.createTaskResult(jobInstanceId, outputJson);
+        taskResultPersistService.createTaskResult(outputJson);
         // StepFunctionsには送信せず、ログ出力のみで完了とする
     }
 

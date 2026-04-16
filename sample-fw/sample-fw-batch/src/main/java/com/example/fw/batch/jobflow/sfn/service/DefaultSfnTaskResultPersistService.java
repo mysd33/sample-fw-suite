@@ -1,5 +1,7 @@
 package com.example.fw.batch.jobflow.sfn.service;
 
+import org.springframework.batch.core.scope.context.JobContext;
+import org.springframework.batch.core.scope.context.JobSynchronizationManager;
 import org.springframework.stereotype.Service;
 
 import com.example.fw.batch.jobflow.sfn.model.SfnTaskResult;
@@ -15,7 +17,11 @@ public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistS
     private final SystemDate systemDate;
 
     @Override
-    public void createTaskResult(long jobInstanceId, String taskResult) {
+    public void createTaskResult(String taskResult) {
+        // 現在のジョブコンテキストからジョブインスタンスIDを取得する
+        JobContext jobContext = JobSynchronizationManager.getContext();
+        long jobInstanceId = jobContext.getJobExecution().getJobInstanceId();
+
         SfnTaskResult result = SfnTaskResult.builder()//
                 .jobInstanceId(jobInstanceId)//
                 .taskResult(taskResult)//
