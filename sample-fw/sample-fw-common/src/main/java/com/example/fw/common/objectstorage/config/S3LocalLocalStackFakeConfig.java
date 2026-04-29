@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.amazonaws.xray.interceptors.TracingInterceptor;
 import com.example.fw.common.objectstorage.BucketCreateInitializer;
 import com.example.fw.common.objectstorage.ObjectStorageFileAccessor;
 import com.example.fw.common.objectstorage.S3ObjectStorageFileAccessor;
@@ -15,6 +16,7 @@ import com.example.fw.common.objectstorage.S3ObjectStorageFileAccessor;
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -22,7 +24,7 @@ import software.amazon.awssdk.services.s3.S3Configuration;
 
 /**
  * 
- * S3が開発環境上でのローカルサーバFake（LocalStackFake）実行に置き換える設定クラス<br>
+ * S3が開発環境上でのローカルサーバFake（LocalStack）実行に置き換える設定クラス<br>
  *
  */
 @Profile("dev")
@@ -42,11 +44,11 @@ public class S3LocalLocalStackFakeConfig {
     }
 
     /**
-     * S3クライアント（X-Rayトレースなし）
+     * S3クライアント
      */
     @Profile("!xray")
     @Bean
-    S3Client s3ClientWithoutXRay() {
+    S3Client s3Client() {
         // ダミーのクレデンシャル
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(
                 s3ConfigurationProperties.getLocalfake().getAccessKeyId(),
@@ -67,9 +69,11 @@ public class S3LocalLocalStackFakeConfig {
     }
 
     /**
-     * S3クライアント（X-Rayトレースあり）
+     * S3クライアント（X-Ray SDK）<br>
+     *
+     * X-Ray SDKは 2027 年 2 月 25 日にサポート終了となるため削除予定
      */
-    /*
+    @Deprecated(forRemoval = true)
     @Profile("xray")
     @Bean
     S3Client s3ClientWithXRay() {
@@ -94,7 +98,7 @@ public class S3LocalLocalStackFakeConfig {
                 .build();        
         // @formatter:on
     }
-    */
+
     /**
      * バケット初期作成クラス
      * 

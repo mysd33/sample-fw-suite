@@ -7,9 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.amazonaws.xray.interceptors.TracingInterceptor;
+
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -29,11 +32,11 @@ public class SQSCommonLocalConfig {
     private final SQSCommonConfigurationProperties sqsCommonConfigurationProperties;
 
     /**
-     * ElastiqMQ(SQSLocal)起動する場合のSQSClientの定義(X-Rayトレーシングなし）
+     * ElastiqMQ(SQSLocal)起動する場合のSQSClientの定義
      */
     @Profile("!xray")
     @Bean
-    SqsClient sqsClientWithoutXRay() {
+    SqsClient sqsClient() {
         // ダミーのクレデンシャル
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create("dummy", "dummy");
         Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
@@ -46,21 +49,26 @@ public class SQSCommonLocalConfig {
     }
 
     /**
-     * ElastiqMQ(SQSLocal)起動する場合のSQSClientの定義(X-Rayトレーシングあり）
-     */
-    /*
-     * @Profile("xray")
+     * ElastiqMQ(SQSLocal)起動する場合のSQSClientの定義(X-Ray SDK)<br>
      * 
-     * @Bean SqsClient sqsClientFactoryWithXRay() { // ダミーのクレデンシャル
-     * AwsBasicCredentials awsCreds = AwsBasicCredentials.create("dummy", "dummy");
-     * Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
-     * return SqsClient.builder() // 個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
-     * .overrideConfiguration(
-     * ClientOverrideConfiguration.builder().addExecutionInterceptor(new
-     * TracingInterceptor()).build())
-     * .httpClientBuilder((ApacheHttpClient.builder()))// .region(region)//
-     * .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
-     * .endpointOverride(URI.create(HTTP_LOCALHOST +
-     * sqsCommonConfigurationProperties.getSqslocal().getPort())) .build(); }
+     * X-Ray SDKは2027 年 2 月 25 日にサポート終了となるため削除予定
      */
+    @Deprecated(forRemoval = true)
+    @Profile("xray")
+    @Bean
+    SqsClient sqsClientWithXRay() {
+        // ダミーのクレデンシャル
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create("dummy", "dummy");
+        Region region = Region.of(sqsCommonConfigurationProperties.getRegion());
+        return SqsClient.builder()
+                // 個別にSQSへのAWS SDKの呼び出しをトレーシングできるように設定
+                .overrideConfiguration(
+                        ClientOverrideConfiguration.builder().addExecutionInterceptor(new TracingInterceptor()).build())
+                .httpClientBuilder((ApacheHttpClient.builder()))//
+                .region(region)//
+                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+                .endpointOverride(URI.create(HTTP_LOCALHOST + sqsCommonConfigurationProperties.getSqslocal().getPort()))
+                .build();
+    }
+
 }
