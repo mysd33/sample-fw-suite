@@ -28,7 +28,6 @@ import eu.europa.esig.dss.model.x509.CertificateToken;
 import eu.europa.esig.dss.pades.PAdESSignatureParameters;
 import eu.europa.esig.dss.pades.SignatureFieldParameters;
 import eu.europa.esig.dss.pades.SignatureImageParameters;
-import eu.europa.esig.dss.pades.SignatureImageTextParameters;
 import eu.europa.esig.dss.pades.signature.PAdESService;
 import eu.europa.esig.dss.spi.validation.CertificateVerifier;
 import eu.europa.esig.dss.spi.validation.CommonCertificateVerifier;
@@ -231,8 +230,10 @@ public class AWSKmsPAdESReportSigner implements ReportSigner {
                 options.getVisibleSignRect()[2] - options.getVisibleSignRect()[0]);
             fieldParameters.setHeight(
                 options.getVisibleSignRect()[3] - options.getVisibleSignRect()[1]);
-            SignatureImageTextParameters textParameters = new SignatureImageTextParameters();
-            textParameters.setText(options.getVisibleSignText());
+            // Image with Text visual signature is not supported for OpenPDF module
+            //SignatureImageTextParameters textParameters = new SignatureImageTextParameters();
+            //textParameters.setText(options.getVisibleSignText());
+            //imageParameters.setTextParameters(textParameters);
             pAdESSignatureParameters.setImageParameters(imageParameters);
         }
 
