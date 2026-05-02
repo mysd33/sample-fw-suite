@@ -1,12 +1,5 @@
 package com.example.fw.common.schedule.config;
 
-import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.util.StringUtils;
-
 import com.example.fw.common.async.repository.JobRequestRepository;
 import com.example.fw.common.schedule.app.laucher.BatchAppLauncher;
 import com.example.fw.common.schedule.config.ScheduledBatchProperties.ScheduledJob;
@@ -16,6 +9,12 @@ import com.example.fw.common.schedule.domain.service.ScheduledBatchJobRequestSer
 import com.example.fw.common.schedule.infra.repository.ScheduledBatchJobRequestRepositoryHolder;
 import com.example.fw.common.systemdate.SystemDate;
 import com.example.fw.common.systemdate.config.SystemDateConfig;
+import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.util.StringUtils;
 
 /**
  * 
@@ -78,7 +77,7 @@ public class ScheduleLaunchConfig {
         }
         Object repository = beanFactory.getBean(beanName);
         if (repository instanceof JobRequestRepository) {
-            return new ScheduledBatchJobRequestRepositoryHolder(JobRequestRepository.class.cast(repository));
+            return new ScheduledBatchJobRequestRepositoryHolder((JobRequestRepository) repository);
         } else {
             throw new IllegalStateException("指定されたJobRequestRepository[" + beanName + "]はサポートしていません");
         }

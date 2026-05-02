@@ -1,17 +1,16 @@
 package com.example.fw.common.schedule.app.laucher;
 
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-
 import com.example.fw.common.logging.ApplicationLogger;
 import com.example.fw.common.logging.LoggerFactory;
 import com.example.fw.common.logging.MonitoringLogger;
 import com.example.fw.common.message.CommonFrameworkMessageIds;
 import com.example.fw.common.schedule.domain.service.ScheduledBatchJobRequestInputDto;
 import com.example.fw.common.schedule.domain.service.ScheduledBatchJobRequestService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 
 /**
  * 
@@ -28,7 +27,7 @@ public class BatchAppLauncher implements ApplicationRunner {
     private final ScheduledBatchJobRequestInputDto inputDto;
     
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(@NonNull ApplicationArguments args) throws Exception {
         execute();
     }
     
