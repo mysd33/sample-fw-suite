@@ -12,12 +12,7 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 
-/**
- * 
- * バッチアプリケーションの起動クラス
- * 
- *
- */
+/// バッチアプリケーションの起動クラス
 @Slf4j
 @RequiredArgsConstructor
 public class BatchAppLauncher implements ApplicationRunner {
@@ -31,9 +26,7 @@ public class BatchAppLauncher implements ApplicationRunner {
         execute();
     }
     
-    /**
-     * ジョブの実行依頼を実施バッチアプリケーションを起動する。
-     */
+    /// ジョブの実行依頼を実施バッチアプリケーションを起動する。
     private void execute() {
         appLogger.debug("BatchAppLauncher起動");
         

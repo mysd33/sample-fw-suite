@@ -1,17 +1,14 @@
 package com.example.fw.batch.jobflow.sfn.service;
 
-import org.springframework.batch.core.scope.context.JobContext;
-import org.springframework.batch.core.scope.context.JobSynchronizationManager;
-
 import com.example.fw.batch.jobflow.sfn.model.SfnTaskResult;
 import com.example.fw.batch.jobflow.sfn.repository.SfnTaskResultRepository;
 import com.example.fw.common.systemdate.SystemDate;
-
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
+import org.springframework.batch.core.scope.context.JobContext;
+import org.springframework.batch.core.scope.context.JobSynchronizationManager;
 
-/**
- * Step Functionsのタスク実行結果を永続化するサービスのデフォルト実装
- */
+/// Step Functionsのタスク実行結果を永続化するサービスのデフォルト実装
 @RequiredArgsConstructor
 public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistService {
     private final SfnTaskResultRepository repository;
@@ -24,7 +21,7 @@ public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistS
         if (jobContext == null) {
             throw new IllegalStateException("JobContextを取得できません");
         }
-        long jobInstanceId = jobContext.getJobExecution().getJobInstanceId();
+        var jobInstanceId = jobContext.getJobExecution().getJobInstanceId();
         SfnTaskResult result = SfnTaskResult.builder()//
                 .jobInstanceId(jobInstanceId)//
                 .taskResult(taskResult)//
@@ -34,7 +31,7 @@ public class DefaultSfnTaskResultPersistService implements SfnTaskResultPersistS
     }
 
     @Override
-    public String findTaskResultById(long jobInstanceId) {
+    public @Nullable String findTaskResultById(long jobInstanceId) {
         SfnTaskResult result = repository.findById(jobInstanceId);
         return result != null ? result.getTaskResult() : null;
     }

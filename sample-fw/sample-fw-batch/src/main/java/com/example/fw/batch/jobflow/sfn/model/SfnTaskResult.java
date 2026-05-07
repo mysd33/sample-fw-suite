@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 
-/**
- * Step Functionsのタスク実行結果を表すクラス
- */
+/// Step Functionsのタスク実行結果を表すクラス
 @Data
 @Builder
 public class SfnTaskResult {

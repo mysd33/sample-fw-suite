@@ -1,18 +1,14 @@
 package com.example.fw.batch.async.store;
 
-import jakarta.jms.JMSException;
-import jakarta.jms.Message;
-
 import com.example.fw.batch.message.BatchFrameworkMessageIds;
 import com.example.fw.common.logging.ApplicationLogger;
 import com.example.fw.common.logging.LoggerFactory;
-
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * JmsMessageManagerのデフォルト実装クラス
- */
+/// JmsMessageManagerのデフォルト実装クラス
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultJmsMessageManager implements JmsMessageManager {
@@ -29,7 +25,7 @@ public class DefaultJmsMessageManager implements JmsMessageManager {
         // ジョブ管理テーブルには登録済みなので、メッセージをACKし、キューからメッセージ削除
         Message message = jmsMessageStore.get();
         if (message != null) {
-            String messageId = "";
+            var messageId = "";
             try {
                 messageId = message.getJMSMessageID();
                 appLogger.debug("メッセージをACK:{}", messageId);

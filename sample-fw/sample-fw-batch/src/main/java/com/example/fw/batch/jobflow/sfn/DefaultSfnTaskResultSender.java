@@ -12,9 +12,7 @@ import software.amazon.awssdk.services.sfn.SfnClient;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 
-/**
- * StepFunctionsのタスクの実行結果を送信するためのデフォルト実装
- */
+/// StepFunctionsのタスクの実行結果を送信するためのデフォルト実装
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultSfnTaskResultSender implements SfnTaskResultSender {

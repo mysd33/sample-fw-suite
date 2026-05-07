@@ -11,10 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 
-/**
- * SfnTaskResultSenderのスタブ実装クラス<br>
- * タスクの実行結果を送信する代わりに、ログに出力する。
- */
+/// SfnTaskResultSenderのスタブ実装クラス<br>
+/// タスクの実行結果を送信する代わりに、ログに出力する。
 @Slf4j
 @RequiredArgsConstructor
 public class SfnTaskResultSenderStub implements SfnTaskResultSender {

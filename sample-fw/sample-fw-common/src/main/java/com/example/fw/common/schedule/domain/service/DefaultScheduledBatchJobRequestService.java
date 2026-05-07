@@ -1,23 +1,16 @@
 package com.example.fw.common.schedule.domain.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.example.fw.common.async.model.JobRequest;
 import com.example.fw.common.logging.ApplicationLogger;
 import com.example.fw.common.logging.LoggerFactory;
 import com.example.fw.common.message.CommonFrameworkMessageIds;
 import com.example.fw.common.schedule.infra.repository.ScheduledBatchJobRequestRepositoryHolder;
 import com.example.fw.common.systemdate.SystemDate;
-
+import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 
- * ScheduledBatchJobRequestServiceのデフォルト実装
- *
- */
+/// ScheduledBatchJobRequestServiceのデフォルト実装
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultScheduledBatchJobRequestService implements ScheduledBatchJobRequestService {
@@ -29,7 +22,7 @@ public class DefaultScheduledBatchJobRequestService implements ScheduledBatchJob
     @Override
     public void requestJob(ScheduledBatchJobRequestInputDto inputDto) {
         applogger.info(CommonFrameworkMessageIds.I_FW_SCHDL_0001, inputDto);
-        Map<String, String> params = new HashMap<>(inputDto.getParams());
+        var params = new HashMap<String, String>(inputDto.getParams());
         // ジョブIDとパラメータが一致していても、何度も実行できるよう、システム現在日時を追加設定
         params.put(BATCH_PARAM_NOW, systemDate.now().toString());
 

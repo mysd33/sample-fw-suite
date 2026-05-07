@@ -1,16 +1,10 @@
 package com.example.fw.batch.async.config;
 
+import com.example.fw.common.constants.FrameworkConstants;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.example.fw.common.constants.FrameworkConstants;
-
-import lombok.Data;
-
-/**
- * 
- * SQSのサーバ側のプロパティクラス
- *
- */
+/// SQSのサーバ側のプロパティクラス
 @Data
 @ConfigurationProperties(prefix = SQSServerConfigurationProperties.PROPERTY_PREFIX)
 public class SQSServerConfigurationProperties {

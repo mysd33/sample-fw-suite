@@ -1,17 +1,14 @@
 package com.example.fw.common.dynamodb.config;
 
+import com.amazonaws.xray.interceptors.TracingInterceptor;
+import com.example.fw.common.dynamodb.DynamoDBLocalExecutor;
+import com.example.fw.common.dynamodb.DynamoDBTableInitializer;
 import java.net.URI;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
-import com.amazonaws.xray.interceptors.TracingInterceptor;
-import com.example.fw.common.dynamodb.DynamoDBLocalExecutor;
-import com.example.fw.common.dynamodb.DynamoDBTableInitializer;
-
-import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -19,10 +16,7 @@ import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
-/**
- * DynamoDBLocal起動のの設定クラス（開発時のみ）
- *
- */
+/// DynamoDBLocal起動のの設定クラス（開発時のみ）
 @Configuration
 @RequiredArgsConstructor
 @Profile("dev")
@@ -32,18 +26,14 @@ public class DynamoDBLocalConfig {
     private static final String DUMMY = "dummy";
     private final DynamoDBConfigurationProperties dynamoDBConfigurationProperties;
 
-    /**
-     * DynamoDB Local起動クラス
-     */
+    /// DynamoDB Local起動クラス
     @Bean
     DynamoDBLocalExecutor dynamoDBLocalExecutor(DynamoDBTableInitializer dynamoDBTableInitializer) {
         return new DynamoDBLocalExecutor(dynamoDBConfigurationProperties.getDynamodblocal().getPort(),
                 dynamoDBTableInitializer);
     }
 
-    /**
-     * DynamoDB Localに接続するDynamoDBClient
-     */
+    /// DynamoDB Localに接続するDynamoDBClient
     @Profile("!xray")
     @Bean
     DynamoDbClient dynamoDbClient() {
@@ -52,7 +42,7 @@ public class DynamoDBLocalConfig {
         // @formatter:off        
         Region region = Region.of(dynamoDBConfigurationProperties.getRegion());
         return DynamoDbClient.builder()
-                .httpClientBuilder((ApacheHttpClient.builder()))                
+                .httpClientBuilder(ApacheHttpClient.builder())                
                 .region(region)
                 .endpointOverride(URI.create(HTTP_LOCALHOST + dynamoDBConfigurationProperties.getDynamodblocal().getPort()))
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
@@ -61,11 +51,9 @@ public class DynamoDBLocalConfig {
 
     }
 
-    /**
-     * DynamoDB Localに接続するDynamoDBClient（X-Ray SDK）<br>
-     * 
-     * @deprecated X-Ray SDKは2027 年 2 月 25 日にサポート終了となるため削除予定
-     */
+    /// DynamoDB Localに接続するDynamoDBClient（X-Ray SDK）<br>
+    ///
+    /// @deprecated X-Ray SDKは2027 年 2 月 25 日にサポート終了となるため削除予定
     @Deprecated(forRemoval = true)
     @Profile("xray")
     @Bean
@@ -77,7 +65,7 @@ public class DynamoDBLocalConfig {
         Region region = Region.of(dynamoDBConfigurationProperties.getRegion());
         // @formatter:off    
         return DynamoDbClient.builder()
-                .httpClientBuilder((ApacheHttpClient.builder()))
+                .httpClientBuilder(ApacheHttpClient.builder())
                 .region(region)
                 .endpointOverride(URI.create(HTTP_LOCALHOST + dynamoDBConfigurationProperties.getDynamodblocal().getPort()))
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))

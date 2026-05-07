@@ -1,8 +1,6 @@
 package com.example.fw.batch.jobflow.sfn.repository;
 
-/**
- * コンポーネントスキャンのためのパッケージインタフェース
- */
+/// コンポーネントスキャンのためのパッケージインタフェース
 public interface SfnRepositoryPackage {
 
 }

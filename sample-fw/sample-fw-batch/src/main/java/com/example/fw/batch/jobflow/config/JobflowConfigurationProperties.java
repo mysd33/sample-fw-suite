@@ -1,14 +1,10 @@
 package com.example.fw.batch.jobflow.config;
 
+import com.example.fw.common.constants.FrameworkConstants;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.example.fw.common.constants.FrameworkConstants;
-
-import lombok.Data;
-
-/**
- * ジョブフローのプロパティクラス
- */
+/// ジョブフローのプロパティクラス
 @Data
 @ConfigurationProperties(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX)
 public class JobflowConfigurationProperties {

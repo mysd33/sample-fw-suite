@@ -1,10 +1,5 @@
 package com.example.fw.batch.core.listener;
 
-import java.time.LocalDateTime;
-
-import org.springframework.batch.core.job.JobExecution;
-import org.springframework.batch.core.listener.JobExecutionListener;
-
 import com.example.fw.batch.async.config.SQSServerConfigurationProperties;
 import com.example.fw.batch.async.store.JmsMessageManager;
 import com.example.fw.batch.core.exception.ExceptionHandler;
@@ -12,16 +7,16 @@ import com.example.fw.batch.message.BatchFrameworkMessageIds;
 import com.example.fw.common.logging.ApplicationLogger;
 import com.example.fw.common.logging.LoggerFactory;
 import com.example.fw.common.systemdate.SystemDateUtils;
-
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.job.JobExecution;
+import org.springframework.batch.core.listener.JobExecutionListener;
 
 //TODO: ディレードの場合のコードが混在しているので、
 //ディレード用のDefaultJboExecutionListenerとクラスを分ける
 
-/**
- * キューからメッセージ削除、例外ハンドリング、ログ出力を行うJobExecutionListener
- */
+/// キューからメッセージ削除、例外ハンドリング、ログ出力を行うJobExecutionListener
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultJobExecutionListener implements JobExecutionListener {
@@ -47,7 +42,7 @@ public class DefaultJobExecutionListener implements JobExecutionListener {
     public void afterJob(final JobExecution jobExecution) {
         LocalDateTime startTime = jobExecution.getStartTime();
         LocalDateTime endTime = jobExecution.getEndTime();
-        double elapsedTime = 0D;
+        var elapsedTime = 0D;
         if (startTime != null && endTime != null) {
             elapsedTime = SystemDateUtils.calcElapsedTimeByMilliSeconds(startTime, endTime);
         }

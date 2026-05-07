@@ -1,7 +1,16 @@
 package com.example.fw.batch.async.messaging;
 
+import com.example.fw.batch.async.config.SQSServerConfigurationProperties;
+import com.example.fw.batch.async.store.JmsMessageManager;
+import com.example.fw.batch.message.BatchFrameworkMessageIds;
+import com.example.fw.common.async.model.JobRequest;
+import com.example.fw.common.logging.ApplicationLogger;
+import com.example.fw.common.logging.LoggerFactory;
+import com.example.fw.common.logging.MonitoringLogger;
+import jakarta.jms.Message;
 import java.util.Map;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.converter.JobParametersConverter;
 import org.springframework.batch.core.job.Job;
@@ -17,23 +26,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.support.JmsHeaders;
 import org.springframework.messaging.handler.annotation.Headers;
 
-import com.example.fw.batch.async.config.SQSServerConfigurationProperties;
-import com.example.fw.batch.async.store.JmsMessageManager;
-import com.example.fw.batch.message.BatchFrameworkMessageIds;
-import com.example.fw.common.async.model.JobRequest;
-import com.example.fw.common.logging.ApplicationLogger;
-import com.example.fw.common.logging.LoggerFactory;
-import com.example.fw.common.logging.MonitoringLogger;
-
-import jakarta.jms.Message;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-/**
- * 
- * キューを監視しジョブを実行するクラス
- *
- */
+/// キューを監視しジョブを実行するクラス
 @Slf4j
 @RequiredArgsConstructor
 public class AsyncMessageListener {
@@ -46,12 +39,9 @@ public class AsyncMessageListener {
     private final SQSServerConfigurationProperties sqsServerConfigurationProperties;
     private final JobRegistry jobRegistry;
 
-    /**
-     * キューからジョブの要求情報を受信
-     * 
-     * @param request ジョブの要求情報
-     * 
-     */
+    /// キューからジョブの要求情報を受信
+    ///
+    /// @param request ジョブの要求情報
     @JmsListener(destination = SQSServerConfigurationProperties.LISTENER_QUEUE_NAME_EXPRESSION)
     public void onMessage(@Headers final Map<String, String> headers, Message message, final JobRequest request) {
         // メッセージが有効な形式かチェック
