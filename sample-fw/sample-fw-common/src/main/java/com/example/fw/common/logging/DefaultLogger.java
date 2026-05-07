@@ -1,17 +1,18 @@
 package com.example.fw.common.logging;
 
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.util.Assert;
 
-/// ロガーのデフォルト実装
-public class DefaultLogger implements ApplicationLogger, MonitoringLogger, AuditLogger {
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Locale;
 
+/**
+ * ロガーのデフォルト実装
+ */
+public class DefaultLogger implements ApplicationLogger, MonitoringLogger, AuditLogger {
     private final MessageSource messageSource;
     private final Logger delegateLogger;
 
@@ -64,8 +65,7 @@ public class DefaultLogger implements ApplicationLogger, MonitoringLogger, Audit
     }
 
     @Override
-    public void warn(final String messageId, final String format, final Throwable t,
-        final Object... args) {
+    public void warn(final String messageId, final String format, final Throwable t, final Object... args) {
         if (delegateLogger.isWarnEnabled()) {
             delegateLogger.warn(getMessageWithMessageIdAndFormat(messageId, format, args), t);
         }
@@ -87,8 +87,7 @@ public class DefaultLogger implements ApplicationLogger, MonitoringLogger, Audit
     }
 
     @Override
-    public void error(final String messageId, final String format, final Throwable t,
-        final Object... args) {
+    public void error(final String messageId, final String format, final Throwable t, final Object... args) {
         if (delegateLogger.isErrorEnabled()) {
             delegateLogger.error(getMessageWithMessageIdAndFormat(messageId, format, args), t);
         }
@@ -98,7 +97,8 @@ public class DefaultLogger implements ApplicationLogger, MonitoringLogger, Audit
     public void audit(final String messageId, final Object... args) {
         String message = messageSource.getMessage(messageId, args, Locale.getDefault());
         // TODO: 監査証跡として共通で出力するものを設定
-        delegateLogger.info("[AuditInfo]{0}", message);
+        String commonInfoFormat = "[AuditInfo]{}";
+        delegateLogger.info(commonInfoFormat, message);
     }
 
     private String getMessage(final String messageId, final Object... args) {
@@ -106,8 +106,7 @@ public class DefaultLogger implements ApplicationLogger, MonitoringLogger, Audit
         try {
             message = messageSource.getMessage(messageId, args, Locale.getDefault());
         } catch (NoSuchMessageException _) {
-            message = MessageFormat.format(UNDEFINED_MESSAGE_FORMAT, messageId,
-                Arrays.toString(args));
+            message = MessageFormat.format(UNDEFINED_MESSAGE_FORMAT, messageId, Arrays.toString(args));
         }
         return message;
     }
@@ -116,23 +115,20 @@ public class DefaultLogger implements ApplicationLogger, MonitoringLogger, Audit
         String message;
         try {
             message = MessageFormat.format(ERRORCODE_FORMAT, messageId,
-                messageSource.getMessage(messageId, args, Locale.getDefault()));
+                    messageSource.getMessage(messageId, args, Locale.getDefault()));
         } catch (NoSuchMessageException _) {
-            message = MessageFormat.format(UNDEFINED_MESSAGE_FORMAT, messageId,
-                Arrays.toString(args));
+            message = MessageFormat.format(UNDEFINED_MESSAGE_FORMAT, messageId, Arrays.toString(args));
         }
         return message;
     }
 
-    private String getMessageWithMessageIdAndFormat(final String messageId, final String format,
-        final Object... args) {
+    private String getMessageWithMessageIdAndFormat(final String messageId, final String format, final Object... args) {
         String message;
         try {
             message = MessageFormat.format(ERRORCODE_FORMAT, messageId,
-                messageSource.getMessage(messageId, args, Locale.getDefault()));
+                    messageSource.getMessage(messageId, args, Locale.getDefault()));
         } catch (NoSuchMessageException _) {
-            message = MessageFormat.format(UNDEFINED_MESSAGE_FORMAT, messageId,
-                Arrays.toString(args));
+            message = MessageFormat.format(UNDEFINED_MESSAGE_FORMAT, messageId, Arrays.toString(args));
         }
         return MessageFormat.format(format, message);
     }
