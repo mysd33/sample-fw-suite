@@ -10,20 +10,20 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 /// DynamoDBの共通の設定クラス
 @Configuration
 @RequiredArgsConstructor
-public class DynamoDBCommonConfig {	
-	private final DynamoDbClient dynamoDbClient;
-		
-	/// DynamoDBEnhancedClient
-	/// @return
-	@Bean
-	DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
-		return DynamoDbEnhancedClient.builder().dynamoDbClient(dynamoDbClient).build();
-	}
-	
-	
-	@PreDestroy
-	void closeDynamoDBClient() {
-		dynamoDbClient.close();
-	}
-	
+public class DynamoDBCommonConfig {
+
+    private final DynamoDbClient dynamoDbClient;
+
+    /// DynamoDBEnhancedClient
+    @Bean
+    DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
+        return DynamoDbEnhancedClient.builder().dynamoDbClient(dynamoDbClient).build();
+    }
+
+
+    @PreDestroy
+    void closeDynamoDBClient() {
+        dynamoDbClient.close();
+    }
+
 }

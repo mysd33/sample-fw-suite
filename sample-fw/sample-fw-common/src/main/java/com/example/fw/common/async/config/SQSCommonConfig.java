@@ -1,15 +1,13 @@
 package com.example.fw.common.async.config;
 
+import com.amazon.sqs.javamessaging.ProviderConfiguration;
+import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.JacksonJsonMessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-
-import com.amazon.sqs.javamessaging.ProviderConfiguration;
-import com.amazon.sqs.javamessaging.SQSConnectionFactory;
-
 import software.amazon.awssdk.services.sqs.SqsClient;
 
 /// SQSの設定クラス

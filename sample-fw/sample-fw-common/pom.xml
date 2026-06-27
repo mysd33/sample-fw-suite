@@ -112,7 +112,7 @@
             <artifactId>dynamodb-enhanced</artifactId>
         </dependency>
 
-        <!-- AWS SDK Http Client -->
+        <!-- AWS SDK Http Client (for Sync) -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>apache-client</artifactId>
@@ -123,6 +123,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- AWS SDK Http Client (for Async) -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>netty-nio-client</artifactId>
+        </dependency>
+
+        <!-- AWS SDK Http Client (for DynamoDB Local) -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>url-connection-client</artifactId>
