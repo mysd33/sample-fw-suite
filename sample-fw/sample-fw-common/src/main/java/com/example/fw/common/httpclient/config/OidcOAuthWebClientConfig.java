@@ -5,18 +5,24 @@ import com.example.fw.common.httpclient.WebClientXrayFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 
-/// RESTクライアント関連の設定クラス
-@Profile("!oidc")
+/// RESTクライアント関連の設定クラス（OIDC OAuth 用）
+@Profile("oidc")
 @Configuration
-public class WebClientConfig {
+public class OidcOAuthWebClientConfig {
 
     /// WebClientクラス
     @Profile("!xray")
     @Bean
-    WebClient webClient(WebClient.Builder builder, WebClientLoggingFilter loggingFilter) {
-        return builder.filter(loggingFilter.filter()).build();
+    WebClient webClient(WebClient.Builder builder, WebClientLoggingFilter loggingFilter,
+        OAuth2AuthorizedClientManager authorizedClientManager) {
+        ServletOAuth2AuthorizedClientExchangeFilterFunction filter =
+            new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
+        return builder.apply(filter.oauth2Configuration())
+            .filter(loggingFilter.filter()).build();
     }
 
     /// WebClientクラス（X-Rayトレーシング SDK）<br>
@@ -26,8 +32,11 @@ public class WebClientConfig {
     @Profile("xray")
     @Bean
     WebClient webClientWithXRay(WebClient.Builder builder, WebClientLoggingFilter loggingFilter,
-        WebClientXrayFilter xrayFilter) {
-        return builder.filter(loggingFilter.filter()).filter(xrayFilter.filter()).build();
+        WebClientXrayFilter xrayFilter, OAuth2AuthorizedClientManager authorizedClientManager) {
+        ServletOAuth2AuthorizedClientExchangeFilterFunction filter =
+            new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
+        return builder.apply(filter.oauth2Configuration())
+            .filter(loggingFilter.filter()).filter(xrayFilter.filter()).build();
     }
 
     /// WebClientでのAWS X-Ray SDKのHttpクライアントトレーシング設定<br>
