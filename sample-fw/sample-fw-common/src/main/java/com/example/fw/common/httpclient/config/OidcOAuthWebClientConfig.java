@@ -17,7 +17,7 @@ public class OidcOAuthWebClientConfig {
     /// WebClientクラス
     @Profile("!xray")
     @Bean
-    WebClient webClient(WebClient.Builder builder, WebClientLoggingFilter loggingFilter,
+    WebClient webClientWithOIDC(WebClient.Builder builder, WebClientLoggingFilter loggingFilter,
         OAuth2AuthorizedClientManager authorizedClientManager) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction filter =
             new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
@@ -31,7 +31,8 @@ public class OidcOAuthWebClientConfig {
     @Deprecated(forRemoval = true)
     @Profile("xray")
     @Bean
-    WebClient webClientWithXRay(WebClient.Builder builder, WebClientLoggingFilter loggingFilter,
+    WebClient webClientWithOIDCAndXRay(WebClient.Builder builder,
+        WebClientLoggingFilter loggingFilter,
         WebClientXrayFilter xrayFilter, OAuth2AuthorizedClientManager authorizedClientManager) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction filter =
             new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);

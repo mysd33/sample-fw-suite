@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /// RESTクライアント関連の設定クラス
-@Profile("!oidc")
 @Configuration
 public class WebClientConfig {
 
