@@ -23,31 +23,33 @@ import org.springframework.util.StringUtils;
 /// SpringBatchのコマンドライン実行用の設定クラス
 @Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties({ SpringBatchConfigurationProperties.class, JobflowConfigurationProperties.class })
+@EnableConfigurationProperties({SpringBatchConfigurationProperties.class,
+    JobflowConfigurationProperties.class})
 @ConditionalOnProperty(prefix = SpringBatchConfigurationProperties.PROPERTY_PREFIX, name = "type", havingValue = "commandline")
 public class SpringBatchCommandLineConfig {
 
     /// ジョブパラメータのコンバータの定義（ジョブフロー未使用）
     @Bean
-    @ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "false", matchIfMissing = false)
-    JobParametersConverter jobParametersConverterNotUsingJobflow() {
+    @ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "false", matchIfMissing = true)
+    JobParametersConverter jobParametersConverterNotUsingJobFlow() {
         return new DefaultJobParametersConverter();
     }
 
     /// ジョブフローによるコマンド起動用のJobParametersConverterの定義
     @Bean
-    @ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "true", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "true", matchIfMissing = false)
     JobParametersConverter jobParametersConverterForJobFlow() {
         return new SfnJobParametersConverter();
     }
 
     /// コマンドライン実行用のJobLauncherApplicationRunnerのBean定義<br>
     @Bean
-    JobLauncherApplicationRunner jobLauncherApplicationRunner(JobOperator jobOperator, BatchProperties properties,
-            JobRepository jobRepository, JobflowConfigurationProperties jobflowConfigurationProperties,
-            Environment env) {
+    JobLauncherApplicationRunner jobLauncherApplicationRunner(JobOperator jobOperator,
+        BatchProperties properties,
+        JobRepository jobRepository, JobflowConfigurationProperties jobflowConfigurationProperties,
+        Environment env) {
         var runner = new DefaultJobLauncherApplicationRunner(jobOperator, jobRepository,
-                jobflowConfigurationProperties, env);
+            jobflowConfigurationProperties, env);
         String jobName = properties.getJob().getName();
         if (StringUtils.hasText(jobName)) {
             runner.setJobName(jobName);
@@ -57,7 +59,8 @@ public class SpringBatchCommandLineConfig {
 
     /// ジョブの実行に関わる例外ハンドリング、ログ出力機能の設定
     @Bean
-    JobExecutionListener defaultJobExecutionListenerForCommandLine(ExceptionHandler defaultExceptionHandler) {
+    JobExecutionListener defaultJobExecutionListenerForCommandLine(
+        ExceptionHandler defaultExceptionHandler) {
         return new CommandLineJobExecutionListener(defaultExceptionHandler);
     }
 }

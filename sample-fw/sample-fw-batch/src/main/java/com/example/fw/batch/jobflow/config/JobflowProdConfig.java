@@ -19,6 +19,7 @@ import tools.jackson.databind.ObjectMapper;
 
 /// ジョブフローによる起動用の設定クラス（本番用）
 @Profile("!dev")
+@ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "true", matchIfMissing = false)
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(JobflowConfigurationProperties.class)

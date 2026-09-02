@@ -14,16 +14,18 @@ import tools.jackson.databind.ObjectMapper;
 
 /// ジョブフローによる起動用の設定クラス（開発時）
 @Profile("dev")
+@ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "true", matchIfMissing = false)
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(JobflowConfigurationProperties.class)
 // コマンドライン実行が有効な場合この設定も有効化する
 @ConditionalOnProperty(prefix = SpringBatchConfigurationProperties.PROPERTY_PREFIX, name = "type", havingValue = "commandline")
 public class JobflowLocalConfig {
+
     /// 開発時はSfnClientの代わりにSfnTaskResultSenderStubを使用する
     @Bean
     SfnTaskResultSender sfnTaskResultSenderStub(ObjectMapper objectMapper,
-            SfnTaskResultPersistService taskResultPersistService) {
+        SfnTaskResultPersistService taskResultPersistService) {
         return new SfnTaskResultSenderStub(objectMapper, taskResultPersistService);
     }
 }

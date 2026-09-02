@@ -10,7 +10,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class JobflowConfigurationProperties {
 
     // ジョブフローのプロパティプレフィックス
-    public static final String PROPERTY_PREFIX = FrameworkConstants.PROPERTY_BASE_NAME + "jobflow";
+    public static final String PROPERTY_PREFIX = FrameworkConstants.PROPERTY_BASE_NAME + "sfn";
+    // ジョブフローの有効化フラグ（デフォルト: false）
+    private boolean enable = false;
     // リージョン（デフォルト: ap-northeast-1）
     private String region = "ap-northeast-1";
     // HTTPコネクションプールの最大接続数（AWS SDKのデフォルト値50）
