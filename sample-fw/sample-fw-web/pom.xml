@@ -40,7 +40,14 @@
             <artifactId>spring-boot-starter-security</artifactId>
             <optional>true</optional>
         </dependency>
-        
+
+        <!-- Spring Boot Starter Security OAuth2 Client -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- MyBatis Spring Boot Starter-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
