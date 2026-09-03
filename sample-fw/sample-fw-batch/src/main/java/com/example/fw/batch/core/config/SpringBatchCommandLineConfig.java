@@ -31,14 +31,14 @@ public class SpringBatchCommandLineConfig {
     /// ジョブパラメータのコンバータの定義（ジョブフロー未使用）
     @Bean
     @ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "false", matchIfMissing = true)
-    JobParametersConverter jobParametersConverterNotUsingJobFlow() {
+    JobParametersConverter jobParametersConverterNotUsingJobflow() {
         return new DefaultJobParametersConverter();
     }
 
     /// ジョブフローによるコマンド起動用のJobParametersConverterの定義
     @Bean
     @ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true")
-    JobParametersConverter jobParametersConverterForJobFlow() {
+    JobParametersConverter jobParametersConverterForJobflow() {
         return new SfnJobParametersConverter();
     }
 
