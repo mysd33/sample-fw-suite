@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /// ジョブフローによる起動用の設定クラス
-@ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enable", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = JobflowConfigurationProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true")
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(JobflowConfigurationProperties.class)
