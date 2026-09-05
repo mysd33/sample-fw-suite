@@ -21,7 +21,8 @@
 | | トランサクショントークンチェック | TERASOLUNA Server Frameworkの共通ライブラリの機能を利用して、不正な画面遷移を防止するトランザクションチェック機能を提供する 。 | - | com.example.fw.web.token |
 | | Open APIドキュメント生成 | Springdoc-openapiの機能で、RestController等の実装、アノテーション情報からOpen APIドキュメントをjson、yaml、html（Swagger-UI）形式を提供する 。 | - | - |
 | バッチ | バッチAP実行制御 | Spring BootおよびSpringBatchによりコマンドラインで指定された対象のジョブを起動する機能を提供する。また、SpringBatchに関する実行制御機能を提供する。 | ○ | com.example.fw.batch.core |
-| | ジョブフロー実行支援 | StepFunctionsによるジョブフロー実行の際に、パラメータの引き渡しや、後続ジョブへの実行結果の受け渡しを支援する機能を提供する。 | ○ | com.example.fw.batch.jobflow |
+| | スケジュールバッチ起動（SQS） | SQSを利用した非同期APでのスケジュールイベントによるバッチAP実行を行う際に、application.ymlに定義した独自のスケジュールバッチ定義を読み込みバッチAPへ非同期実行依頼を実施するSpringBootのCLIアプリケーションのための共通部品を提供する。 | ○ | com.example.fw.common.schedule |
+| | スケジュールバッチAP起動（StepFunctions） | スケジュールイベントでのStepFunctionsによるジョブフロー実行の際に、パラメータの引き渡しや、後続ジョブへの実行結果の受け渡しを支援する機能を提供する。 | ○ | com.example.fw.batch.jobflow |
 | | 非同期AP実行制御 | Spring JMSとAmazon SQS Java Messaging Libraryを利用しSQSの標準キューを介した非同期実行依頼のメッセージを受信し、SpringBatchにより対象のジョブを起動する機能を提供する。 | ○ | com.example.fw.batch.async |
 | | 大量データアクセス | SpringBatchのItemReader、ItemWriterを利用し、大容量のファイルやDBのレコードを逐次読み書きする機能を提供する。 | - | - |
 | | 集約例外ハンドリング（バッチ） | エラー（例外）発生時、SpringBatchの機能によりDBのロールバックするとともに、JobExecutionListenerを利用しエラーログの出力といった共通的なエラーハンドリングを実施する。 | ○ | com.example.fw.batch.exeption<br/>com.example.fw.batch.listener |
@@ -35,7 +36,6 @@
 | | HTTPクライアント | WebClientやRestTemplateを利用してREST APIの呼び出しやサーバエラー時の例外の取り扱いを制御する。 | ○ | com.example.fw.common.httpclient |
 | | リトライ・サーキットブレーカ | Spring Cloud Circuit Breaker（Resillience4j）を利用し、REST APIの呼び出しでの一時的な障害に対する遮断やフォールバック処理等を制御する。また、WebClientのリトライ機能でエクスポネンシャルバックオフによりリトライを実現する。なお、AWSリソースのAPI呼び出しは、AWS SDKにてエクスポネンシャルバックオフによりリトライ処理を提供。 | - | - |
 | | 非同期実行依頼 | Spring JMS、Amazon SQS Java Messaging Libraryを利用し、SQSの標準キューを介した非同期実行依頼のメッセージを送信する。 | ○ | com.example.fw.common.async |
-| | スケジュールバッチ起動 | application.ymlに定義した独自のスケジュールバッチ定義を読み込みバッチAPへ非同期実行依頼を実施するSpringBootのCLIアプリケーションを提供する。 | ○ | com.example.fw.common.schedule |
 | | PDF帳票出力 | Jasper Reportsを利用してPDF帳票作成する。<br/>Jasper Reportsを使った帳票の詳しい説明は[こちら](https://github.com/mysd33/sample-jasperreports-springboot) | ○ | com.example.fw.common.reports |
 | | PDF電子署名 | PDFに署名を付与する機能を提供する。署名の種類として、PKCS#12のキーストアをもとに、OpenPDFを使った基本的な署名、DSS(Digital Signature Service)を使ったPAdES署名を作成する。なおPAdESについてはAWS KMSで管理する鍵を使った署名付与にも対応している。詳しい説明は[こちら](https://github.com/mysd33/sample-jasperreports-springboot) | ○ | com.example.fw.common.digitalsignature |
 | | 署名鍵管理 | PDF署名機能で使用する署名鍵を、AWS KMSに作成し管理する機能を提供する。KMSで作成したキーペアに対して公開鍵の取得、電子署名の付与、CSRやテスト用自己署名証明書作成に対応している。詳しい説明は[こちら](https://github.com/mysd33/sample-jasperreports-springboot) | ○ | com.example.fw.common.keymanagment |
