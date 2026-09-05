@@ -1,4 +1,4 @@
-package com.example.fw.web.conversion;
+package com.example.fw.web.conversion.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

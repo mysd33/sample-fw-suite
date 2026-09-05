@@ -1,4 +1,4 @@
-package com.example.fw.web.servlet.config;
+package com.example.fw.web.tomcat.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

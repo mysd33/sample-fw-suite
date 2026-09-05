@@ -1,4 +1,4 @@
-package com.example.fw.web.servlet.logback;
+package com.example.fw.web.tomcat.logback;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

@@ -1,6 +1,7 @@
 
-package com.example.fw.web.conversion;
+package com.example.fw.web.conversion.form.config;
 
+import com.example.fw.web.conversion.form.SpecialCharConvertFilter;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
