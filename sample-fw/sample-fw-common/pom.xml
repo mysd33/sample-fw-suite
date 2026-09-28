@@ -24,14 +24,6 @@
             <artifactId>spring-boot-starter-webclient</artifactId>
         </dependency>
 
-
-        <!-- Spring Boot Starter Security OAuth2 Client -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- Spring Boot JDBC Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
