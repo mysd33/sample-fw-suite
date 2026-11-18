@@ -47,7 +47,6 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
             <optional>true</optional>
         </dependency>
-
         <!-- MyBatis Spring Boot Starter-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -72,6 +71,13 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-core</artifactId>
+        </dependency>
+
+        <!-- Spring Data Redis -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <scope>optional</scope>
         </dependency>
 
         <!-- Spring Data Commons -->
